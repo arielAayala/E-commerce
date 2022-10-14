@@ -1,22 +1,17 @@
-import authContext from "./context"
-import { React,useContext,useState,useEffect } from "react";
+import Context from "./context"
+import { React,useState,useEffect } from "react";
 import {createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, onAuthStateChanged,signOut,signInWithPopup,sendPasswordResetEmail} from "firebase/auth"
 import {auth} from "../services/firebase"
 
 
 
-
-export const useAuth = () => {
-    const context = useContext(authContext);
-    return context
-}
-
-export function authProvider({children}){
+export default function AuthContext(props){
+    const{children} = props
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [user, setUser] = useState(null);
 
-    const LogIn = (email,password)=> signInWithEmailAndPassword(auth,email,password)
+    const logIn = (email,password)=> signInWithEmailAndPassword(auth,email,password)
 
     const register = (email,password) => createUserWithEmailAndPassword(auth,email,password)
 
@@ -30,15 +25,14 @@ export function authProvider({children}){
 
     const logOut = () => signOut(auth)
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(()=>{
-        onAuthStateChanged((auth,currentUser)=>{
-            setUser(currentUser)
+        onAuthStateChanged((auth,user)=>{
+            setUser(user)
         })
     },[]) 
 
 
     return (
-        <authContext.Provider value={{user,LogIn,register,resetPassword,logInGoogle,logOut}}>{children}</authContext.Provider>
+        <Context.Provider value={{user,logIn,register,resetPassword,logInGoogle,logOut}}>{children}</Context.Provider>
     )
 }

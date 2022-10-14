@@ -1,9 +1,15 @@
-function App() {
+import AuthContext from "../context/context"
+import {Route,Routes} from "react-router-dom"
+import Home from "../containers/home";
+import Login from "../containers/login"
+export default function App() {
   return (
-    <>
-    hola
-    </>
+
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/login" element={<Login/>} />
+      </Routes>
+
   );
 }
 
-export default App;
