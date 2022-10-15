@@ -12,7 +12,7 @@ export default function App() {
           <Route exact path="/" element={<Home/>} />
           <Route exact path="/login" element={<Login/>}/>
           <Route exact path="/register" element={<Register/>}/>
-          <Route exact path="/admin" element={<ProductsProvider><Admin/></ProductsProvider>} />
+          <Route exact path="/admin" element={ <ProductsProvider><Admin/></ProductsProvider>} />
         </Routes>
       </AuthProvider>
   );

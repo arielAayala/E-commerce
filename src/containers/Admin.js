@@ -1,13 +1,15 @@
-import { useContext } from "react";
-import context from "../context/context";
+import Table from "../components/Table";
+
 
 
 export default function Admin() {
-    const {getProducts} = useContext(context)
-    
+
+
+
     return(
         <>
             <h1>admin</h1>
+            <Table></Table>
         </>
     )
 

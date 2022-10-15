@@ -32,13 +32,13 @@ export default function ProductsProvider(props) {
         setProducts(lstProducts)
     }
 
-    const addProduct = async(name,detail,photos,category) => {
+    const addProduct = async(name,detail,photos,category,quantity) => {
         await setDoc(doc(db,"products", (await incrementalCount()).toString),{
             nameProduct: name,
             detailProduct:detail,
             photosProduct:photos,
             categoryProduct:category,
-            quantityProduct:0
+            quantityProduct:quantity
         })
     }
 
