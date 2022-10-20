@@ -4,18 +4,14 @@ import context from "../context/context";
 
 export default function Table() {
 
-
     const {lstProducts,getProducts} = useContext(context)
 
     const [pending,setPeding] = useState(true)
+    const [searcher,setSearcher] = useState("")
 
-    const users = lstProducts.map((i)  => {return {
-        product:i.nameProduct ,
-        quantity: i.quantityProduct,
-        detail:i.detailProduct,
-        id:i.id,
-        category:i.categoryProduct
-    }})
+
+    const inputChange = (e) => setSearcher(e.target.value)
+
 
     const columns = [
         {
@@ -25,31 +21,45 @@ export default function Table() {
         },
         {
             name: 'Product',
-            selector: row => row.product,
+            selector: row => row.nameProduct,
             sortable: true,
         },
         {
             name: 'Detail',
-            selector: row => row.quantity,
+            selector: row => row.detailProduct,
             sortable: true,
         },
         {
             name: 'Category',
-            selector: row => row.category,
+            selector: row => row.categoryProduct,
             sortable: true,
         },
         {
             name: 'Quantity',
-            selector: row => row.quantity,
+            selector: row => row.quantityProduct,
             sortable: true,
         }
     ]
 	useEffect(() => {
         getProducts()
-        console.log(lstProducts)
         console.log("cargar")
-        setTimeout((() => {setPeding(false)}),3000)
+        setTimeout((() => {setPeding(false)}),2200)
+        // eslint-disable-next-line
 	}, []);
+    
+	return (
+        
+        <>
+            <input name='searcher' onChange={inputChange}  placeholder='Buscar'></input>
+            
+            <DataTable pagination={true} columns={columns}  data={lstProducts.filter ((i) =>{
+                if (searcher === ""){
+                    return i
+                } else if(i.nameProduct.toLowerCase().includes(searcher.toLowerCase())  || i.id.toLowerCase().includes(searcher.toLowerCase())){
+                    return i
+                }
+            })} progressPending={pending} />
+        </>
 
-	return <DataTable columns={columns} data={users} progressPending={pending} />;
+    );
 };

@@ -10,7 +10,6 @@ import { db } from "../services/firebase";
 export default function AuthProvider(props){
     const{children} = props
 
-
     const [user] = useState(null); 
 
     const logIn = (email,password)=> signInWithEmailAndPassword(auth,email,password)
@@ -19,14 +18,12 @@ export default function AuthProvider(props){
 
     const resetPassword = (email) => sendPasswordResetEmail(auth,email)
 
-
     const logInGoogle =  () => { 
         const GoogleAuth = new GoogleAuthProvider()
         return signInWithPopup(auth,GoogleAuth)
     }
 
     const logOut = () => signOut(auth)
-
 
     const addUser = async(user) =>{
         if (!user) return
@@ -36,7 +33,6 @@ export default function AuthProvider(props){
             photoUser: user.photoURL
         })
     }
-
 
     return (
         <>
@@ -51,7 +47,6 @@ export default function AuthProvider(props){
             }}>
             {children}
         </AuthContext.Provider>
-        </>
-        
+        </>        
     )
 }
