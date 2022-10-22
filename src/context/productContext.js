@@ -12,8 +12,8 @@ export default function ProductsProvider(props) {
         let count = -1
         const snap = await getDocs(collection(db,"products"))
         snap.forEach((i)=>{
-            if ( count < parseInt(i)){
-                count = parseInt(i)
+            if ( count < parseInt(i.id)){
+                count = parseInt(i.id)
             }
         })
         return count + 1
@@ -33,12 +33,12 @@ export default function ProductsProvider(props) {
     }
 
     const addProduct = async(name,detail,photos,category,quantity) => {
-        await setDoc(doc(db,"products", (await incrementalCount()).toString),{
+        await setDoc(doc(db,"products", (await incrementalCount()).toString()),{
             nameProduct: name,
             detailProduct:detail,
             photosProduct:photos,
             categoryProduct:category,
-            quantityProduct:quantity
+            quantityProduct: parseInt(quantity)
         })
     }
 

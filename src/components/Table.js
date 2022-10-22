@@ -12,6 +12,7 @@ export default function Table() {
 
     const inputChange = (e) => setSearcher(e.target.value)
 
+    const products = lstProducts.map((i)=>{return{...i,}})
 
     const columns = [
         {
@@ -25,11 +26,6 @@ export default function Table() {
             sortable: true,
         },
         {
-            name: 'Detail',
-            selector: row => row.detailProduct,
-            sortable: true,
-        },
-        {
             name: 'Category',
             selector: row => row.categoryProduct,
             sortable: true,
@@ -40,6 +36,23 @@ export default function Table() {
             sortable: true,
         }
     ]
+
+    const ExpandedComponent= ({ data }) => {
+        return (
+        <>
+            
+            <h4>{data.detailProduct}</h4>
+            <div>
+            {data.photosProduct.map((i)=>{
+                return <img  key={i} alt='photos' src={i}></img>
+            })}
+            </div>   
+        </>
+        );
+    };
+
+
+
 	useEffect(() => {
         getProducts()
         console.log("cargar")
@@ -47,12 +60,15 @@ export default function Table() {
         // eslint-disable-next-line
 	}, []);
     
+
+
 	return (
         
         <>
             <input name='searcher' onChange={inputChange}  placeholder='Buscar'></input>
             
-            <DataTable pagination={true} columns={columns}  data={lstProducts.filter ((i) =>{
+            <DataTable title="Productos" selectableRows   fixedHeader fixedHeaderScrollHeight="300px" expandableRows expandableRowsComponent={ExpandedComponent} pagination={true} columns={columns}  data={products.filter ((i) =>{
+
                 if (searcher === ""){
                     return i
                 } else if(i.nameProduct.toLowerCase().includes(searcher.toLowerCase())  || i.id.toLowerCase().includes(searcher.toLowerCase())){
@@ -63,3 +79,4 @@ export default function Table() {
 
     );
 };
+
