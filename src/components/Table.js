@@ -1,6 +1,8 @@
 import DataTable from 'react-data-table-component';
 import { useContext, useEffect,useState } from "react";
 import context from "../context/context";
+import ButtonUpdate from './ButtonUpdate';
+
 
 export default function Table() {
 
@@ -12,8 +14,12 @@ export default function Table() {
 
     const inputChange = (e) => setSearcher(e.target.value)
 
-    const products = lstProducts.map((i)=>{return{...i,}})
 
+
+    const products = lstProducts.map((i)=>{return{...i,
+        }})
+
+        
     const columns = [
         {
             name: 'ID',
@@ -34,6 +40,12 @@ export default function Table() {
             name: 'Quantity',
             selector: row => row.quantityProduct,
             sortable: true,
+        },{
+            name:"",
+            selector: row => (<ButtonUpdate key={row.id} id={row.id} detailProduct={row.detailProduct} quantityProduct={row.quantityProduct} categoryProduct={row.categoryProduct} nameProduct={row.nameProduct} ></ButtonUpdate>)
+        },{
+            name:"",
+            selector: row => "hola"
         }
     ]
 
@@ -41,10 +53,10 @@ export default function Table() {
         return (
         <>
             
-            <h4>{data.detailProduct}</h4>
+            <h6>{data.detailProduct}</h6>
             <div>
             {data.photosProduct.map((i)=>{
-                return <img  key={i} alt='photos' src={i}></img>
+                return <img className="img-thumbnail rounded-2"  key={i} alt='photos' src={i}></img>
             })}
             </div>   
         </>
@@ -65,16 +77,25 @@ export default function Table() {
 	return (
         
         <>
-            <input name='searcher' onChange={inputChange}  placeholder='Buscar'></input>
+            <div className='d-flex justify-content-start'>
+                <div className="input-group mb-3">
+                        <span className="input-group-text" id="basic-addon1">🔎</span>
+                        <input className="form-control" name='searcher' onChange={inputChange}  placeholder='Buscar'></input>
+                </div>    
+            </div>        
             
-            <DataTable title="Productos" selectableRows   fixedHeader fixedHeaderScrollHeight="300px" expandableRows expandableRowsComponent={ExpandedComponent} pagination={true} columns={columns}  data={products.filter ((i) =>{
+            
+            <DataTable  title="Productos"  expandableRows expandableRowsComponent={ExpandedComponent} pagination={true} columns={columns}  data={
+                // eslint-disable-next-line
+                products.filter ((i) =>{
 
                 if (searcher === ""){
                     return i
                 } else if(i.nameProduct.toLowerCase().includes(searcher.toLowerCase())  || i.id.toLowerCase().includes(searcher.toLowerCase())){
                     return i
                 }
-            })} progressPending={pending} />
+            })} progressPending={pending}  responsive={true} highlightOnHover
+            pointerOnHover/>
         </>
 
     );
