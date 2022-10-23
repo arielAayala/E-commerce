@@ -2,6 +2,7 @@ import DataTable from 'react-data-table-component';
 import { useContext, useEffect,useState } from "react";
 import context from "../context/context";
 import ButtonUpdate from './ButtonUpdate';
+import ButtonDelete from './ButtonDelete';
 
 
 export default function Table() {
@@ -11,15 +12,8 @@ export default function Table() {
     const [pending,setPeding] = useState(true)
     const [searcher,setSearcher] = useState("")
 
-
     const inputChange = (e) => setSearcher(e.target.value)
-
-
-
-    const products = lstProducts.map((i)=>{return{...i,
-        }})
-
-        
+  
     const columns = [
         {
             name: 'ID',
@@ -45,7 +39,7 @@ export default function Table() {
             selector: row => (<ButtonUpdate key={row.id} id={row.id} detailProduct={row.detailProduct} quantityProduct={row.quantityProduct} categoryProduct={row.categoryProduct} nameProduct={row.nameProduct} ></ButtonUpdate>)
         },{
             name:"",
-            selector: row => "hola"
+            selector: row => (<ButtonDelete key={row.id} id={row.id} ></ButtonDelete>)
         }
     ]
 
@@ -62,7 +56,6 @@ export default function Table() {
         </>
         );
     };
-
 
 
 	useEffect(() => {
@@ -84,18 +77,25 @@ export default function Table() {
                 </div>    
             </div>        
             
-            
-            <DataTable  title="Productos"  expandableRows expandableRowsComponent={ExpandedComponent} pagination={true} columns={columns}  data={
-                // eslint-disable-next-line
-                products.filter ((i) =>{
+            <DataTable  
+                title="Productos"  
+                expandableRows 
+                expandableRowsComponent={ExpandedComponent} 
+                pagination={true} columns={columns}  
+                data={
+                    // eslint-disable-next-line
+                    lstProducts.filter ((i) =>{
 
-                if (searcher === ""){
-                    return i
-                } else if(i.nameProduct.toLowerCase().includes(searcher.toLowerCase())  || i.id.toLowerCase().includes(searcher.toLowerCase())){
-                    return i
-                }
-            })} progressPending={pending}  responsive={true} highlightOnHover
-            pointerOnHover/>
+                    if (searcher === ""){
+                        return i
+                    } else if(i.nameProduct.toLowerCase().includes(searcher.toLowerCase())  || i.id.toLowerCase().includes(searcher.toLowerCase())){
+                        return i
+                    }
+                })} 
+                progressPending={pending}  
+                responsive={true} 
+                highlightOnHover
+                pointerOnHover/>
         </>
 
     );
