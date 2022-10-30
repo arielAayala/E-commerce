@@ -46,12 +46,9 @@ export default function Table() {
     const ExpandedComponent= ({ data }) => {
         return (
         <>
-            
             <h6>{data.detailProduct}</h6>
             <div>
-            {data.photosProduct.map((i)=>{
-                return <img className="img-thumbnail rounded-2"  key={i} alt='photos' src={i}></img>
-            })}
+                <img className="img-thumbnail rounded-2"  key={data.id} alt='photos' src={data.photosProduct}></img>
             </div>   
         </>
         );

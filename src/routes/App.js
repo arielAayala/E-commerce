@@ -5,6 +5,7 @@ import Home from "../containers/home";
 import Login from "../containers/login"
 import Register from "../containers/register";
 import Admin from "../containers/Admin"
+import Products from "../containers/Products"
 export default function App() {
   return (
       <AuthProvider>
@@ -13,6 +14,7 @@ export default function App() {
           <Route exact path="/login" element={<Login/>}/>
           <Route exact path="/register" element={<Register/>}/>
           <Route exact path="/admin" element={ <ProductsProvider><Admin/></ProductsProvider>} />
+          <Route exact path="/products" element={<ProductsProvider><Products></Products></ProductsProvider>} />
         </Routes>
       </AuthProvider>
   );

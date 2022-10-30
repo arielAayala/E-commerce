@@ -13,7 +13,7 @@ export default function ButtonAgregar() {
         detailProduct:"",
         quantityProduct: "",
         categoryProduct:"",
-        photosProduct:[]
+        photosProduct:""
     })
     
     const handleChange = ({target:{name,value}}) => {setInput({...input,[name]:value})}
@@ -21,7 +21,7 @@ export default function ButtonAgregar() {
     const handleAdd = async(e) =>{
         e.preventDefault()
         try {
-            if (input.nameProduct=== "" || input.detailProduct === "" || input.categoryProduct=== "" || input.quantityProduct===""){
+            if (input.nameProduct=== "" || input.detailProduct === "" || input.categoryProduct=== "" || input.quantityProduct==="" || input.photosProduct===""){
                 // eslint-disable-next-line
                 throw "Las casillas no puedes estar vacias"
             }else if (isNaN(parseFloat(input.quantityProduct)) || !Number.isInteger(parseFloat(input.quantityProduct))){
@@ -54,6 +54,7 @@ export default function ButtonAgregar() {
                                 <textarea className="form-control mb-2"  name="detailProduct" placeholder="Detalle del producto" onChange={handleChange} ></textarea>
                                 <input className="form-control mb-2"   name="categoryProduct" placeholder="Categoria del producto" onChange={handleChange} ></input>
                                 <input className="form-control mb-2"   name="quantityProduct" placeholder="Cantidad del producto" onChange={handleChange} ></input>
+                                <input className="form-control mb-2"   name="photosProduct" placeholder="Fotos del producto" onChange={handleChange} ></input>
                             </form>
                             <h6>{error}</h6> 
                         </div>
