@@ -6,14 +6,13 @@ export default function ButtonUpdate(props) {
     const {updateProduct,getProducts} = useContext(context)
 
 
-    const [error,setError] = useState("")
 
     const [input,setInput] = useState({
         nameProduct:props.nameProduct,
         detailProduct:props.detailProduct,
         quantityProduct: props.quantityProduct,
         categoryProduct:props.categoryProduct,
-        photosProduct:[]
+        photosProduct:props.photosProduct
     })
     
     const handleChange = ({target:{name,value}}) => {setInput({...input,[name]:value})}
@@ -21,7 +20,7 @@ export default function ButtonUpdate(props) {
     const handleUpdate = async(e) =>{
         e.preventDefault()
         try {
-            if (input.nameProduct.length === 0 && input.detailProduct.length  === 0 && input.categoryProduct.length === 0 && input.quantityProduct.length ===0){
+            if ((input.nameProduct) === "" || input.detailProduct  === "" || input.categoryProduct === "" || input.quantityProduct ===""  || input.photosProduct === ""){
                 // eslint-disable-next-line
                 throw "Las casillas no puedes estar vacias"
             }else if (isNaN(parseFloat(input.quantityProduct)) || !Number.isInteger(parseFloat(input.quantityProduct))){
@@ -30,9 +29,9 @@ export default function ButtonUpdate(props) {
             }
             await  updateProduct(props.id,input.nameProduct, input.detailProduct,input.photosProduct ,input.categoryProduct,input.quantityProduct)
             getProducts()
-            setError("")
         } catch (error) {
-            setError(error)
+            console.log(error)
+            alert(error)
         }
     }
 
@@ -53,8 +52,8 @@ export default function ButtonUpdate(props) {
                                 <textarea className="form-control mb-2" defaultValue={props.detailProduct} name="detailProduct" placeholder="Detalle del producto" onChange={handleChange} ></textarea>
                                 <input className="form-control mb-2" defaultValue={props.categoryProduct} name="categoryProduct" placeholder="Categoria del producto" onChange={handleChange} ></input>
                                 <input className="form-control mb-2"  defaultValue={props.quantityProduct} name="quantityProduct" placeholder="Cantidad del producto" onChange={handleChange} ></input>
+                                <input className="form-control mb-2"  defaultValue={props.photosProduct} name="photosProduct" placeholder="Fotos del producto" onChange={handleChange} ></input>
                             </form>
-                            <h6>{error}</h6> 
                         </div>
                         <div className="modal-footer">
                             <button type="submit" onClick={handleUpdate} className="btn btn-primary">Actualizar</button>

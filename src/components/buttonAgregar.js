@@ -6,7 +6,6 @@ export default function ButtonAgregar() {
     const {addProduct,getProducts} = useContext(context)
 
 
-    const [error,setError] = useState("")
 
     const [input,setInput] = useState({
         nameProduct:"",
@@ -30,10 +29,10 @@ export default function ButtonAgregar() {
             }
             await  addProduct(input.nameProduct, input.detailProduct,input.photosProduct ,input.categoryProduct,input.quantityProduct)
             getProducts()
-            setError("")
             document.getElementById("formAddProduct").reset()
         } catch (error) {
-            setError(error)
+            console.log(error)
+            alert(error)
         }
     }
 
@@ -56,7 +55,6 @@ export default function ButtonAgregar() {
                                 <input className="form-control mb-2"   name="quantityProduct" placeholder="Cantidad del producto" onChange={handleChange} ></input>
                                 <input className="form-control mb-2"   name="photosProduct" placeholder="Fotos del producto" onChange={handleChange} ></input>
                             </form>
-                            <h6>{error}</h6> 
                         </div>
                         <div className="modal-footer">
                             <button type="submit" onClick={handleAdd} className="btn btn-primary">Agregar</button>

@@ -36,7 +36,7 @@ export default function Table() {
             sortable: true,
         },{
             name:"",
-            selector: row => (<ButtonUpdate key={row.id} id={row.id} detailProduct={row.detailProduct} quantityProduct={row.quantityProduct} categoryProduct={row.categoryProduct} nameProduct={row.nameProduct} ></ButtonUpdate>)
+            selector: row => (<ButtonUpdate key={row.id} id={row.id} detailProduct={row.detailProduct} photosProduct={row.photosProduct} quantityProduct={row.quantityProduct} categoryProduct={row.categoryProduct} nameProduct={row.nameProduct} ></ButtonUpdate>)
         },{
             name:"",
             selector: row => (<ButtonDelete key={row.id} id={row.id} ></ButtonDelete>)

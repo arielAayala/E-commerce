@@ -6,8 +6,14 @@ export default function ButtonDelete(props) {
     const {deleteProduct, getProducts} = useContext(context)
 
     const handleDelete = async() =>{
-        await deleteProduct(props.id)
-        getProducts()
+        try {
+            await deleteProduct(props.id)
+            getProducts()
+        } catch (error) {
+            console.log(error)
+            alert(error)
+        }
+
     }
 
     return(
