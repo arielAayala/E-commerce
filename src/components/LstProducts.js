@@ -18,7 +18,7 @@ export default function LstProducts() {
         <>
             <div className="grid text-center">
                 {lstProducts.map(i =>{
-                    return (<div key={i.id + "div"} className="g-col-4 p-2 m-2">
+                    return (<div key={i.id + "div"} className="">
                         <Product key={i.id} id={i.id} nameProduct={i.nameProduct} detailProduct={i.detailProduct} photosProduct={i.photosProduct} ></Product>
                     </div>
                     )
