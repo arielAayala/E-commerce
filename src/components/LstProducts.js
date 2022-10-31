@@ -29,7 +29,15 @@ export default function LstProducts() {
                 <div className="row ">
                     
                 {// eslint-disable-next-line
-                    lstProducts.filter((i) =>{
+                    lstProducts.sort((a,b)=>{
+                        if (a.nameProduct.toLowerCase()>b.nameProduct.toLowerCase()){
+                            return 1
+                        }else if(a.nameProduct.toLowerCase()<b.nameProduct.toLowerCase()){
+                                return -1
+                        }
+                        
+                    }).filter(// eslint-disable-next-line
+                        (i) =>{
                     if (searcher === ""){
                         return i
                     } else if(i.nameProduct.toLowerCase().includes(searcher.toLowerCase()) || i.categoryProduct.toLowerCase().includes(searcher.toLowerCase())){
@@ -45,5 +53,4 @@ export default function LstProducts() {
             </div>
         </>
     )
-
 }
