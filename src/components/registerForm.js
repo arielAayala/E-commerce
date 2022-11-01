@@ -8,7 +8,7 @@ export default function RegisterForm() {
     password: ""
   })
 
-  const { register } = useContext(context);
+  const { register, addUser } = useContext(context);
 
   const handleChange = ({ target: { value, name } }) => setUser({ ...user, [name]: value })
 
@@ -18,18 +18,28 @@ export default function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("")
+    // console.log(user)
     try {
-      await register(user.email, user.password)
-      // navigate("/")
+      const userRegister = await register(user.email, user.password)
+      addUser(userRegister)
+      navigate("/")
+      console.log(userRegister)
     } catch (error) {
-      setError(error.message)
+      if (error.code === "auth/email-already-in-use") {
+        setError("El correo ya esta registrado")
+      } else if (error.code === "auth/weak-password") {
+        setError("La contraseña debe tener minimo 6 caracteres")
+      } else if (error.code === "auth/invalid-email") {
+        setError("El email no es valido")
+      }
+      // console.log(error)
     }
   }
 
   return (
     <>
-      <div className='container-sm center'>
-        <form>
+      <div className='container center'>
+        <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label for="exampleInputEmail1" className="form-label">Correo electronico</label>
             <input type="email" name="email" className="form-control my-2" onChange={handleChange} defaultValue="" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Ingrese su correo electronico' />
@@ -42,7 +52,7 @@ export default function RegisterForm() {
             <input type="checkbox" class="form-check-input" id="exampleCheck1" />
             <label className="form-check-label" for="exampleCheck1">Check me out</label>
           </div>
-          <button type="submit" class="btn btn-primary">Guardar</button>
+          <button type="submit" className="btn btn-primary">Guardar</button>
         </form>
       </div>
     </>
