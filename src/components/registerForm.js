@@ -1,53 +1,52 @@
 import { useState, useContext } from 'react';
-import { context } from "../context/context";
+import context from "../context/context";
 import { useNavigate } from "react-router-dom";
-import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
-import "../assets/css/Login.css";
 
-export default function registerForm() {
+export default function RegisterForm() {
+  const [user, setUser] = useState({
+    email: "",
+    password: ""
+  })
 
-    const [user, setUser] = useState({
-        email: "",
-        password: ""
-    })
+  const { register } = useContext(context);
 
-    const { register } = useContext(context)
+  const handleChange = ({ target: { value, name } }) => setUser({ ...user, [name]: value })
 
-    const handleChange = ({ target: { value, name } }) => setUser({ ...user, [name]: value })
+  const [error, setError] = useState("")
+  const navigate = useNavigate()
 
-    const [error, setError] = useState("")
-    const navigate = useNavigate()
-
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        setError("")
-        try {
-            await register(user.email, user.password)
-            navigate("/")
-        } catch {
-            setError(error.message)
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("")
+    try {
+      await register(user.email, user.password)
+      // navigate("/")
+    } catch (error) {
+      setError(error.message)
     }
+  }
+
+  return (
+    <>
+      <div className='container-sm center'>
+        <form>
+          <div className="mb-3">
+            <label for="exampleInputEmail1" className="form-label">Correo electronico</label>
+            <input type="email" name="email" className="form-control my-2" onChange={handleChange} defaultValue="" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Ingrese su correo electronico' />
+          </div>
+          <div className="mb-3">
+            <label for="exampleInputPassword1" className="form-label">Contraseña</label>
+            <input type="password" name="password" className="form-control my-2" onChange={handleChange} defaultValue="" id="exampleInputPassword1" placeholder='Ingrese su contraseña' />
+          </div>
+          <div className="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+            <label className="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+      </div>
+    </>
+  )
 
 
-    return (
-        <>
-            <form>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" />
-                </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </>
-    )
 }
