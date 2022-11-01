@@ -1,5 +1,6 @@
-import ButtonAgregar from "../components/ButtonAgregar";
+import ButtonAgregar from "../components/buttonAgregar";
 import Table from "../components/Table";
+import Header from "../components/header"
 
 export default function Admin() {
 
