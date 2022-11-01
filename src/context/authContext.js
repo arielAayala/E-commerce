@@ -2,7 +2,7 @@ import AuthContext from "./context"
 import React,{useState} from "react";
 import {createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword,signOut,signInWithPopup,sendPasswordResetEmail} from "firebase/auth"
 import {auth} from "../services/firebase"
-import { setDoc,doc } from "firebase/firestore";
+import { setDoc,doc, updateDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
 
 
@@ -28,9 +28,17 @@ export default function AuthProvider(props){
     const addUser = async(user) =>{
         if (!user) return
         await setDoc(doc(db,"users",user.uid),{
+            uid: user.uid,
             displayNameUser: user.displayName,
             emailUser: user.email,
-            photoUser: user.photoURL
+            photoUser: user.photoURL,
+            isOnline: false
+        })
+    }
+
+    const stateUser = async(userLogin) => {
+        await updateDoc(doc(db, "users", userLogin.user.uid),{
+            isOnline: true
         })
     }
 
@@ -43,7 +51,8 @@ export default function AuthProvider(props){
             resetPassword,
             logInGoogle,
             logOut,
-            addUser
+            addUser,
+            stateUser
             }}>
             {children}
         </AuthContext.Provider>
