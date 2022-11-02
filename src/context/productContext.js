@@ -58,6 +58,7 @@ export default function ProductsProvider(props) {
 
 
 
+
     return(
         <>
             <ContextProducts.Provider value={{
@@ -65,7 +66,8 @@ export default function ProductsProvider(props) {
                 getProducts,
                 addProduct,
                 updateProduct,
-                deleteProduct
+                deleteProduct,
+                
             }}>{children}</ContextProducts.Provider>
         </>
     )

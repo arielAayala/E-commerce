@@ -40,7 +40,7 @@ export default function LoginForm() {
         try {
             const userLoginGoogle = await logInGoogle()
             addUser(userLoginGoogle, null)
-            navigate("/")
+            navigate("/cart")
         } catch {
             setError(error)
         }
