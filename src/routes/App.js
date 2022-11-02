@@ -9,7 +9,8 @@ import Products from "../containers/Products"
 import Cart from "../containers/Cart";
 import ProtectedRoute from "../containers/protectedRoute";
 import Header from "../components/header";
-import { Footer } from "../components/footer";
+import Footer from "../components/footer";
+
 export default function App() {
   return (
       <AuthProvider>
