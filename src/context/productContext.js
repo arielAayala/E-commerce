@@ -7,7 +7,7 @@ import context from "./context"
 
 export default function ProductsProvider(props) {
 
-    const {addCart,getCart} =useContext(context)
+    const {addCart} =useContext(context)
 
     const {children} = props
 
@@ -67,6 +67,7 @@ export default function ProductsProvider(props) {
     }
 
 
+
     return(
         <>
             <ContextProducts.Provider value={{
@@ -75,7 +76,7 @@ export default function ProductsProvider(props) {
                 addProduct,
                 updateProduct,
                 deleteProduct,
-                addToCart
+                addToCart,
             }}>{children}</ContextProducts.Provider>
         </>
     )

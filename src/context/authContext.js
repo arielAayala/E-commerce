@@ -2,7 +2,7 @@ import AuthContext from "./context"
 import React,{useEffect, useState} from "react";
 import {createUserWithEmailAndPassword, onAuthStateChanged ,GoogleAuthProvider, signInWithEmailAndPassword,signOut,signInWithPopup,sendPasswordResetEmail} from "firebase/auth"
 import {auth} from "../services/firebase"
-import { setDoc,doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { setDoc,doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
 
 
@@ -54,35 +54,78 @@ export default function AuthProvider(props){
         setCart(snap.data().cart) 
     }
 
-    const addCart = async(id,name,photo)=>{
+    const addCart = async(id,name,photo,)=>{
         let lst = []
+
         const snap = await getDoc(doc(db,"users",user.uid))
         lst.push({
-            "id":id,
+            "idProduct":id,
             "nameProduct":name,
-            "photosProduct":photo
+            "photosProduct":photo,
+            "quantityProduct":1
         })
-        snap.data().cart.forEach(i => {
+        await snap.data().cart.forEach(i => {
+            let flag = false
+            let cont = 0
+            lst.forEach(j =>{
+                if(j.idProduct === i.idProduct){
+                    lst.push({
+                        "idProduct":i.idProduct,
+                        "nameProduct":i.nameProduct,
+                        "photosProduct":i.photosProduct,
+                        "quantityProduct":i.quantityProduct +1
+                    })
+                    lst.splice(cont,1)
+                    flag = true
+                }
+                cont +=1
+            })
+            if (!flag){
+                lst.push({
+                    "idProduct":i.idProduct,
+                    "nameProduct":i.nameProduct,
+                    "photosProduct":i.photosProduct,
+                    "quantityProduct":i.quantityProduct
+                })
+            }
+        })
+         
+        await updateDoc(doc(db,"users",user.uid),{
+            "cart":lst
+        })
+        await getCart()
+    }
+
+    const deleteCart = async(id)=>{
+        const lst = []
+        const snap = await getDoc(doc(db,"users",user.uid))
+        snap.data().cart.forEach(i=>{
             lst.push({
                 "id":i.id,
                 "nameProduct":i.nameProduct,
                 "photosProduct":i.photosProduct
             })
-        });
+        })
+        for (let i = 0; i < lst.length; i++) {
+            if (lst[i].id === id){
+                console.log("encontro")
+                lst.splice(i,1)
+            }
+        }
+
+        await updateDoc(doc(db,"users",user.uid),{
+            "cart":lst  
+          })
+        await getCart()
+    } 
+
+    const deleteAllCart = async() =>{
+        let lst = []
         await updateDoc(doc(db,"users",user.uid),{
             "cart":lst
         })
+        getCart()
     }
-
-    const deleteCart = async(id)=>{
-        const lst = cart
-        lst.splice(id,1)
-
-        await deleteDoc(doc(db,"users",user.uid),{
-            "cart":lst  
-          })
-          getCart()
-    } 
 
     return (
         <>
@@ -98,7 +141,8 @@ export default function AuthProvider(props){
             getCart,
             lstCart:cart,
             addCart,
-            deleteCart
+            deleteCart,
+            deleteAllCart
             }}>
             {children}
         </AuthContext.Provider>
