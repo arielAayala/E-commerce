@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider1 from "../assets/static/slider_1.jpg"
 import Slider2 from "../assets/static/slider_2.jpg"
 import Slider3 from "../assets/static/slider_3.jpg"
+    
 
-const Carrousel = () => {
+export default function Carrousel () {
     const images = [Slider1,Slider2,Slider3]
     const [selectedIndex, setSelectedIndex] = useState();
     const [image, setImage] = useState(images[0]);
@@ -19,8 +20,16 @@ const Carrousel = () => {
         selectNewImage(selectedIndex, images, false);
     };
     const next = () => {
-        selectNewImage(selectedIndex, images,true);
+        selectNewImage(selectedIndex, images, true);
     }
+    useEffect(() =>{
+        if (images.autoPlay){
+            const interval = setInterval(()=>{
+                selectNewImage(selectedIndex, images)
+            }, 2000);
+            return () => clearInterval(interval);
+        }
+    })
     return (
         <>
             <div className='d-flex justify-content-center ' style={{"height":"25rem"}} >
@@ -31,5 +40,3 @@ const Carrousel = () => {
         </>
     );
 }
-
-export default Carrousel;
