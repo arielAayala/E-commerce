@@ -2,7 +2,7 @@ import AuthContext from "./context"
 import React,{useEffect, useState} from "react";
 import {createUserWithEmailAndPassword, onAuthStateChanged ,GoogleAuthProvider, signInWithEmailAndPassword,signOut,signInWithPopup,sendPasswordResetEmail} from "firebase/auth"
 import {auth} from "../services/firebase"
-import { setDoc,doc, getDocs,collection } from "firebase/firestore";
+import { setDoc,doc, getDocs,collection, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
 
 
@@ -50,13 +50,34 @@ export default function AuthProvider(props){
     const [cart,setCart] = useState([])
 
     const getCart = async(userId) =>{
-        const snap = await getDocs(collection(db,"users"))
-        snap.forEach(i=>{
-            if (userId === i.id){
-                console.log(i.data().cart)
-                setCart(i.data().cart)
-            }
+        const snap = await getDoc(doc(db,"users",userId))
+        console.log(snap.data().cart)
+        setCart(snap.data().cart)
+    
+    }
+
+    const addCart = async(id,name,photo)=>{
+        const lst = cart
+        lst.push({
+            "id":id,
+            "nameProduct":name,
+            "photosProduct":photo
         })
+        await updateDoc(doc(db,"users",user.uid),{
+          "cart":lst  
+        })
+        getCart()
+    }
+
+    const deleteCart = async(id)=>{
+        const lst = cart
+        lst.splice(id,1)
+
+        await updateDoc(doc(db,"users",user.uid),{
+            "cart":lst  
+          })
+          getCart()
+        
     }
 
     return (
@@ -71,7 +92,9 @@ export default function AuthProvider(props){
             logOut,
             addUser,
             getCart,
-            lstCart:cart
+            lstCart:cart,
+            addCart,
+            deleteCart
             }}>
             {children}
         </AuthContext.Provider>

@@ -1,9 +1,14 @@
 import ContextProducts from "./context"
 import { db } from "../services/firebase"
-import { useState } from "react"
+import { useState,useContext } from "react"
 import { setDoc,updateDoc,doc,collection,getDocs, deleteDoc } from "firebase/firestore"
+import context from "./context"
+
 
 export default function ProductsProvider(props) {
+
+    const {addCart} =useContext(context)
+
     const {children} = props
 
     const [products, setProducts] = useState([]);
@@ -57,6 +62,10 @@ export default function ProductsProvider(props) {
     }
 
 
+    const addToCart=async(id,name,photos)=>{
+        console.log("btn carrito")
+        await addCart(id,name,photos)
+    }
 
 
     return(
@@ -67,7 +76,7 @@ export default function ProductsProvider(props) {
                 addProduct,
                 updateProduct,
                 deleteProduct,
-                
+                addToCart
             }}>{children}</ContextProducts.Provider>
         </>
     )

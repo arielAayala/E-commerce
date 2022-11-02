@@ -8,9 +8,11 @@ import Admin from "../containers/Admin"
 import Products from "../containers/Products"
 import Cart from "../containers/Cart";
 import ProtectedRoute from "../containers/protectedRoute";
+import Header from "../components/header";
 export default function App() {
   return (
       <AuthProvider>
+          <Header></Header>
           <Routes>
             <Route exact path="/" element={<Home/>} />
             <Route exact path="/login" element={<Login/>}/>
@@ -20,6 +22,7 @@ export default function App() {
             <Route exact path="/cart" element={ <ProtectedRoute><Cart></Cart></ProtectedRoute> } />
           </Routes>
       </AuthProvider>
+
   );
 }
 
