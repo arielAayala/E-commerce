@@ -39,9 +39,8 @@ export default function LoginForm() {
     const handleLogInGoogle = async (e) => {
         try {
             const userLoginGoogle = await logInGoogle()
-            addUser(userLoginGoogle)
-            stateUser(userLoginGoogle)
-            navigate("/")
+            addUser(userLoginGoogle, null)
+            navigate("/cart")
         } catch {
             setError(error)
         }
@@ -52,16 +51,16 @@ export default function LoginForm() {
             <div className='container center'>
                 <form onSubmit={handleLogIn}>
                     <div className="mb-3">
-                        <label for="exampleInputEmail1" className="form-label">Correo electronico</label>
+                        <label htmlFor="exampleInputEmail1" className="form-label">Correo electronico</label>
                         <input type="email" name="email" className="form-control my-2" onChange={handleChange} defaultValue="" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Ingrese su correo electronico' />
                     </div>
                     <div className="mb-3">
-                        <label for="exampleInputPassword1" className="form-label">Contraseña</label>
+                        <label htmlFor="exampleInputPassword1" className="form-label">Contraseña</label>
                         <input type="password" name="password" className="form-control my-2" onChange={handleChange} defaultValue="" id="exampleInputPassword1" placeholder='Ingrese su contraseña' />
                     </div>
                     <div className="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                        <label className="form-check-label" for="exampleCheck1">Check me out</label>
+                        <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                        <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
                     </div>
                     <button type="submit" className="btn btn-primary">Guardar</button>
                 </form>
@@ -69,6 +68,5 @@ export default function LoginForm() {
             </div>
             <h3 className='h3 mb-3 fw-normal'>¿Aún no tienes una cuenta? <a href={("/register")}>Únete</a></h3>
         </>
-
     )
 }
