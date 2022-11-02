@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function RegisterForm() {
   const [user, setUser] = useState({
+    userName: "",
     email: "",
     password: ""
   })
@@ -21,7 +22,7 @@ export default function RegisterForm() {
     // console.log(user)
     try {
       const userRegister = await register(user.email, user.password)
-      addUser(userRegister)
+      addUser(userRegister, user.userName)
       navigate("/")
       console.log(userRegister)
     } catch (error) {
@@ -40,17 +41,21 @@ export default function RegisterForm() {
     <>
       <div className='container center'>
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label for="exampleInputEmail1" className="form-label">Correo electronico</label>
-            <input type="email" name="email" className="form-control my-2" onChange={handleChange} defaultValue="" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Ingrese su correo electronico' />
+        <div className="mb-3">
+            <label htmlFor="exampleInputName" className="form-label">Nombre de usuario</label>
+            <input type="text" name="userName" className="form-control my-2" onChange={handleChange} defaultValue="" id="exampleInputName" placeholder='Ingrese su nombre y apellido' />
           </div>
           <div className="mb-3">
-            <label for="exampleInputPassword1" className="form-label">Contraseña</label>
+            <label htmlFor="exampleInputEmail1" className="form-label">Correo electronico</label>
+            <input type="email" name="email" className="form-control my-2" onChange={handleChange} defaultValue="" id="exampleInputEmail1" placeholder='Ingrese su correo electronico' />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputPassword1" className="form-label">Contraseña</label>
             <input type="password" name="password" className="form-control my-2" onChange={handleChange} defaultValue="" id="exampleInputPassword1" placeholder='Ingrese su contraseña' />
           </div>
           <div className="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-            <label className="form-check-label" for="exampleCheck1">Check me out</label>
+            <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+            <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
           </div>
           <button type="submit" className="btn btn-primary">Guardar</button>
         </form>

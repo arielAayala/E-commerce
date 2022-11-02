@@ -25,20 +25,19 @@ export default function AuthProvider(props){
 
     const logOut = () => signOut(auth)
 
-    const addUser = async(user) =>{
+    const addUser = async(user, userName) =>{
         if (!user) return
-        await setDoc(doc(db,"users",user.uid),{
-            uid: user.uid,
-            displayNameUser: user.displayName,
-            emailUser: user.email,
-            photoUser: user.photoURL,
-            isOnline: false
+        await setDoc(doc(db,"users",user.user.uid),{
+            uid: user.user.uid,
+            displayNameUser: userName ? userName: user.user.displayName,
+            emailUser: user.user.email,
+            photoUser: user.user.photoURL,
         })
     }
 
     const stateUser = async(userLogin) => {
         await updateDoc(doc(db, "users", userLogin.user.uid),{
-            isOnline: true
+            
         })
     }
 
