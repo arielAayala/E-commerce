@@ -9,6 +9,7 @@ import Products from "../containers/Products"
 import Cart from "../containers/Cart";
 import ProtectedRoute from "../containers/protectedRoute";
 import Header from "../components/header";
+import { Footer } from "../components/footer";
 export default function App() {
   return (
       <AuthProvider>
@@ -21,6 +22,7 @@ export default function App() {
             <Route exact path="/products" element={<ProductsProvider><Products></Products></ProductsProvider>}/>
             <Route exact path="/cart" element={ <ProtectedRoute><Cart></Cart></ProtectedRoute> } />
           </Routes>
+          <Footer></Footer>
       </AuthProvider>
 
   );
