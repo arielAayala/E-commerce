@@ -1,14 +1,11 @@
 
 import Carrousel from "../components/carrousel";
 
-import { useContext, useEffect } from "react";
-import context from "../context/context";
+import { useEffect } from "react";
+
 
 export default function Home() {
-    const {user} = useContext(context)
-
     useEffect(() => {
-      console.log(user)
       // eslint-disable-next-line
     }, [])
 

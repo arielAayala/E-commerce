@@ -7,7 +7,7 @@ import context from "./context"
 
 export default function ProductsProvider(props) {
 
-    const {addCart} =useContext(context)
+    const {addCart,getCart} =useContext(context)
 
     const {children} = props
 
@@ -63,7 +63,6 @@ export default function ProductsProvider(props) {
 
 
     const addToCart=async(id,name,photos)=>{
-        console.log("btn carrito")
         await addCart(id,name,photos)
     }
 

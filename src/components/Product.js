@@ -9,8 +9,8 @@ export default function Product(props) {
 
 
     const handleAddToCart = async() =>{
-        navigate("/cart")
         await addToCart(props.id,props.nameProduct,props.photosProduct)
+        navigate("/cart")
     }
 
     return(
