@@ -10,6 +10,7 @@ import Cart from "../containers/Cart";
 import ProtectedRoute from "../containers/protectedRoute";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import Info from "../components/info"
 
 export default function App() {
   return (
@@ -21,7 +22,7 @@ export default function App() {
             <Route exact path="/register" element={<Register/>}/>
             <Route exact path="/admin" element={ <ProductsProvider><Admin/></ProductsProvider>} />
             <Route exact path="/products" element={<ProductsProvider><Products></Products></ProductsProvider>}/>
-            <Route exact path="/cart" element={ <ProtectedRoute><Cart></Cart></ProtectedRoute> } />
+            <Route exact path="/info" element={ <Info/> } />
           </Routes>
           <Footer></Footer>
       </AuthProvider>
