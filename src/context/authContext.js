@@ -99,15 +99,16 @@ export default function AuthProvider(props){
     const deleteCart = async(id)=>{
         const lst = []
         const snap = await getDoc(doc(db,"users",user.uid))
-        snap.data().cart.forEach(i=>{
+        await snap.data().cart.forEach(i=>{
             lst.push({
-                "id":i.id,
+                "idProduct":i.idProduct,
                 "nameProduct":i.nameProduct,
-                "photosProduct":i.photosProduct
+                "photosProduct":i.photosProduct,
+                "quantityProduct":i.quantityProduct
             })
         })
         for (let i = 0; i < lst.length; i++) {
-            if (lst[i].id === id){
+            if (lst[i].idProduct === id){
                 console.log("encontro")
                 lst.splice(i,1)
             }
