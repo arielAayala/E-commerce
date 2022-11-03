@@ -2,6 +2,7 @@ import { useState, useContext } from 'react'
 import context from "../context/context";
 import { useNavigate } from "react-router-dom";
 import logoGoogle from "../assets/static/google.png";
+import Alert from "../components/Alert";
 
 export default function LoginForm() {
 
@@ -10,7 +11,7 @@ export default function LoginForm() {
         password: ""
     })
 
-    const { logIn, logInGoogle, resetPassword, addUser, stateUser } = useContext(context)
+    const { logIn, logInGoogle, resetPassword, addUser } = useContext(context)
 
     const handleChange = ({ target: { value, name } }) => setUser({ ...user, [name]: value })
 
@@ -19,10 +20,9 @@ export default function LoginForm() {
 
     const handleLogIn = async (e) => {
         e.preventDefault()
-        setError(" ")
+        setError("");
         try {
-            const userLogin = await logIn(user.email, user.password)
-            stateUser(userLogin)
+            await logIn(user.email, user.password)
             navigate("/")
         } catch {
             setError(error.code)
@@ -46,27 +46,44 @@ export default function LoginForm() {
         }
     }
 
+    const handleResetPassword = async (e) => {
+        e.preventDefault();
+        if (!user.email) return setError("Ingrese un correo para cambiar contraseña")
+        try {
+            await resetPassword(user.email)
+            setError("Te hemos enviado un correo")
+        } catch (error) {
+            setError(error.message)
+        }
+    }
+
     return (
         <>
-            <div className='container center'>
-                <form onSubmit={handleLogIn}>
+            <div className='container card center border border-3 border-secondary'>
+                {/* {error && <Alert message={error} />} */}
+                <form onSubmit={handleLogIn} className="column mt-3 g-3 mb-3 p-2 needs-validation card-image-overlay">
                     <div className="mb-3">
-                        <label htmlFor="exampleInputEmail1" className="form-label">Correo electronico</label>
-                        <input type="email" name="email" className="form-control my-2" onChange={handleChange} defaultValue="" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Ingrese su correo electronico' />
+                        <label htmlFor="emailValidation" className="form-label">Correo electronico</label>
+                        <input type="email" name="email" className="form-control my-2" onChange={handleChange} defaultValue="" id="emailValidation" placeholder='Ingrese su correo electronico' required />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="exampleInputPassword1" className="form-label">Contraseña</label>
-                        <input type="password" name="password" className="form-control my-2" onChange={handleChange} defaultValue="" id="exampleInputPassword1" placeholder='Ingrese su contraseña' />
+                        <label htmlFor="passwordValidation" className="form-label">Contraseña</label>
+                        <input type="password" name="password" className="form-control my-2" onChange={handleChange} defaultValue="" id="passwordValidation" placeholder='*********' required />
                     </div>
-                    <div className="mb-3 form-check">
-                        <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                        <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+                    <div className="mb-3">
+                        <div className='form-check'>
+                            <input type="checkbox" className="form-check-input" id="terms" required />
+                            <label className="form-check-label" htmlFor="terms">Acepto los términos y condiciones</label>
+                        </div>
                     </div>
-                    <button type="submit" className="btn btn-primary">Guardar</button>
+                    <div className='justify-between'>
+                        <button type="submit" className="btn btn-primary">Continuar</button>
+                        <a href="#!" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" onClick={handleResetPassword}>¿Olvidaste tu contraseña?</a>
+                    </div>
+                    <h6>Ingresar con <img onClick={handleLogInGoogle} alt="Google" className='m-3 border' width="30" height="30" src={logoGoogle} /></h6>
+                    <h6>¿Aún no tienes una cuenta?<a href={("/register")}>Únete</a></h6>
                 </form>
-                <img onClick={handleLogInGoogle} alt="Google" className='m-3' width="30" height="30" src={logoGoogle} />
             </div>
-            <h3 className='h3 mb-3 fw-normal'>¿Aún no tienes una cuenta? <a href={("/register")}>Únete</a></h3>
         </>
     )
 }

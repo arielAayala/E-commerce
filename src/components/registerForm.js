@@ -24,7 +24,7 @@ export default function RegisterForm() {
       const userRegister = await register(user.email, user.password)
       addUser(userRegister, user.userName)
       navigate("/")
-      console.log(userRegister)
+      // console.log(userRegister)
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         setError("El correo ya esta registrado")
