@@ -1,16 +1,18 @@
 import { useContext } from "react"
 import {useNavigate} from "react-router-dom"
 import context from "../context/context"
+import Alert from "./Alert"
 export default function Product(props) {
 
     const{addToCart}=useContext(context)
 
-    const navigate = useNavigate()
+
 
 
     const handleAddToCart = async() =>{
         await addToCart(props.id,props.nameProduct,props.photosProduct)
-        navigate("/cart")
+        alert("Producto agregado al carrito")
+        
     }
 
     return(

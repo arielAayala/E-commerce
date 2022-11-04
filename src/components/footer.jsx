@@ -3,15 +3,15 @@ import React from "react";
 export default function Footer() {
     return (
         <div>
-            <footer className="text white py-4 bg-primary sticky-bottom">
+            <footer className="text white py-4 bg-warning sticky-bottom">
                 <div className="container">
-                    <nav className="row text-bg-primary ">
+                    <nav className="row  ">
                         Navegar
                     </nav>
                     <nav className="row">
-                        <a href="/" className="link-light">Home</a>
+                        <a href="/" className="link-dark">Home</a>
                         <ul className="col-12 col-md-3 list-unstyled">
-                            <a href="/login" className="link-light">Login</a>
+                            <a href="/login" className="link-dark">Login</a>
                         </ul>
                     </nav>
                 </div>
