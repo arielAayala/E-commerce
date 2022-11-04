@@ -2,7 +2,7 @@ import AuthContext from "./context"
 import React,{useEffect, useState} from "react";
 import {createUserWithEmailAndPassword, onAuthStateChanged ,GoogleAuthProvider, signInWithEmailAndPassword,signOut,signInWithPopup,sendPasswordResetEmail} from "firebase/auth"
 import {auth} from "../services/firebase"
-import { setDoc,doc, getDoc, updateDoc } from "firebase/firestore";
+import { setDoc,doc, getDoc, updateDoc, getDocs, collection, serverTimestamp, addDoc} from "firebase/firestore";
 import { db } from "../services/firebase";
 
 
@@ -128,6 +128,42 @@ export default function AuthProvider(props){
         getCart()
     }
 
+    const confirmCart = async()=>{
+        let lstProductsSell = []
+        const snapProduct = (await getDocs(collection(db,"products")))
+        const snapCart = (await getDoc(doc(db,"users",user.uid)))
+        snapCart.data().cart.forEach(i=>{
+            snapProduct.forEach(async j=>{
+                if(j.id ===i.idProduct){
+                    let resta =  j.data().quantityProduct- i.quantityProduct
+                    if(resta < 0){
+                        // eslint-disable-next-line no-throw-literal
+                        throw "No hay stock disponible"
+                    }else{
+                        lstProductsSell.push({
+                            "idProduct":i.idProduct,
+                            "nameProduct":i.nameProduct,
+                            "quantityProductSell":i.quantityProduct,
+                        })
+                        await updateDoc(doc(db,"products",j.id),{
+                            "quantityProduct":resta
+                        })
+                        console.log("stock Actualizado");
+                    }
+                }
+            })
+        })
+        await updateDoc(doc(db,"users",user.uid),{
+            "cart":[]
+        })
+        await getCart()
+        await addDoc(collection(db,"sells"),{
+            "userId":user.uid,
+            "detailSell":lstProductsSell,
+            "time":serverTimestamp()
+        })
+    }
+
     return (
         <>
         <AuthContext.Provider value={{
@@ -143,7 +179,8 @@ export default function AuthProvider(props){
             lstCart:cart,
             addCart,
             deleteCart,
-            deleteAllCart
+            deleteAllCart,
+            confirmCart
             }}>
             {children}
         </AuthContext.Provider>

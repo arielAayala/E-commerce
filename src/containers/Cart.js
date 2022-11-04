@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react"
 import context from "../context/context"
 
 export default function Cart() {
-    const {getCart,lstCart,deleteCart,deleteAllCart} = useContext(context)
+    const {getCart,lstCart,deleteCart,deleteAllCart,confirmCart} = useContext(context)
 
     useEffect(() => {
         getCart()
@@ -18,6 +18,10 @@ export default function Cart() {
 
     const handleDeleteAll = async() =>{
         await deleteAllCart()
+    }
+
+    const handleConfirmCart= async()=>{
+        await confirmCart()
     }
 
     return(
@@ -41,6 +45,15 @@ export default function Cart() {
                         )})
                     }
                 </div>
+                {lstCart.length > 0 ?(
+                    <div className="w-75 m-auto text-end">
+                        <button className="btn btn-danger" onClick={handleConfirmCart}>Confirmar Compra</button>
+                    </div>
+                ):(
+                    <div className="w-75 m-auto text-end my-2">
+                        <button className="btn btn-danger disabled" onClick={handleConfirmCart}>Confirmar Compra</button>
+                    </div>
+                )}
             </div>
         </>
     )

@@ -40,7 +40,7 @@ export default function LoginForm() {
         try {
             const userLoginGoogle = await logInGoogle()
             addUser(userLoginGoogle, null)
-            navigate("/cart")
+            navigate("/")
         } catch {
             setError(error)
         }
@@ -70,18 +70,12 @@ export default function LoginForm() {
                         <label htmlFor="passwordValidation" className="form-label">Contraseña</label>
                         <input type="password" name="password" className="form-control my-2" onChange={handleChange} defaultValue="" id="passwordValidation" placeholder='*********' required />
                     </div>
-                    <div className="mb-3">
-                        <div className='form-check'>
-                            <input type="checkbox" className="form-check-input" id="terms" required />
-                            <label className="form-check-label" htmlFor="terms">Acepto los términos y condiciones</label>
-                        </div>
-                    </div>
                     <div className='justify-between'>
                         <button type="submit" className="btn btn-primary">Continuar</button>
                         <a href="#!" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" onClick={handleResetPassword}>¿Olvidaste tu contraseña?</a>
                     </div>
                     <h6>Ingresar con <img onClick={handleLogInGoogle} alt="Google" className='m-3 border' width="30" height="30" src={logoGoogle} /></h6>
-                    <h6>¿Aún no tienes una cuenta?<a href={("/register")}>Únete</a></h6>
+                    <h6>¿Aún no tienes una cuenta? <a href={("/register")}>Únete</a></h6>
                 </form>
             </div>
         </>

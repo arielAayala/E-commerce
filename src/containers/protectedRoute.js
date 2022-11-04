@@ -13,7 +13,7 @@ export default function ProtectedRoute({children}){
         </div>
     )
 
-    if (!user ){
+    if (!user || user.uid === "3uZ5yknYaGeuECiNV5TXQNtgAMR2"){
         return <Navigate to="/"/>
     }else return <>{children}</>
 }
