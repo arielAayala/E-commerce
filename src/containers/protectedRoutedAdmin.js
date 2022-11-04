@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom"
 import React, { useContext } from "react";
 import context from "../context/context";
 
-export default function ProtectedRoute({children}){
+export default function ProtectedRouteAdmin({children}){
     const {user, loading} = useContext(context)
 
     if (loading) return (
@@ -13,7 +13,7 @@ export default function ProtectedRoute({children}){
         </div>
     )
 
-    if (!user ){
+    if (!user || user.uid !== "3uZ5yknYaGeuECiNV5TXQNtgAMR2"){
         return <Navigate to="/"/>
     }else return <>{children}</>
 }

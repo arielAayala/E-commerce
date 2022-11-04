@@ -1,6 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import context from '../context/context'
+
+
 
 function Navbar() {
+    const {user,logOut} = useContext(context)
+    const navigate = useNavigate()
+
+    const handleLogout =async()=>{
+        await logOut()
+        navigate("/login")
+    }
+
   return (
     <>
         <nav className="navbar navbar-expand-lg bg-light">
@@ -20,9 +32,18 @@ function Navbar() {
                     <li className="nav-item">
                         <a className="nav-link" href="/info"> Acerca de </a>
                     </li>
-                    <li className="nav-item">
-                        <a className="nav-link position-absolute top-50 end-0 translate-middle border border-2 rounded border-dark shadow" href="/login"> Ingresar </a>
-                    </li>
+                    {
+                        !user ? (
+                            <li className="nav-item">
+                                <a className="nav-link position-absolute top-50 end-0 translate-middle border border-2 rounded border-dark shadow" href="/login"> Ingresar </a>
+                            </li>
+                        ):(
+                            <li className="nav-item">
+                                <button className="nav-link position-absolute top-50 end-0 translate-middle border border-2 rounded border-dark shadow" onClick={handleLogout}> Salir </button>
+                            </li>
+                        )
+                    }
+                    
                 </ul>
             </div>
         </div>
