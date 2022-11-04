@@ -1,4 +1,4 @@
-import ButtonAgregar from "../components/buttonAgregar";
+import ButtonAgregar from "../components/ButtonAgregar";
 import Table from "../components/Table";
 
 
