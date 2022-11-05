@@ -14,6 +14,6 @@ export default function ProtectedRoute({children}){
     )
 
     if (!user || user.uid === "3uZ5yknYaGeuECiNV5TXQNtgAMR2"){
-        return <Navigate to="/"/>
+        return <Navigate to="/login"/>
     }else return <>{children}</>
 }

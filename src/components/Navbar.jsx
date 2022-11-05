@@ -17,7 +17,6 @@ function Navbar() {
     <>
         <nav className="navbar navbar-expand-lg bg-warning">
         <div className="container-fluid">
-        <a className="navbar-brand" href="/"> Ricky $hop</a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
         </button>
@@ -32,18 +31,6 @@ function Navbar() {
                     <li className="nav-item">
                         <a className="nav-link" href="/info"> Acerca de </a>
                     </li>
-                    {
-                        !user ? (
-                            <li className="nav-item">
-                                <a className="nav-link position-absolute top-50 end-0 translate-middle border border-2 rounded border-dark shadow" href="/login"> Ingresar </a>
-                            </li>
-                        ):(
-                            <li className="nav-item">
-                                <button className="nav-link position-absolute top-50 end-0 translate-middle border border-2 rounded border-dark shadow" onClick={handleLogout}> Salir </button>
-                            </li>
-                        )
-                    }
-                    
                 </ul>
             </div>
         </div>

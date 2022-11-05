@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import context from "../context/context"
+import cartIcon from "../assets/static/icons/cart-icon.png"
 
 export default function Cart() {
     const {getCart,lstCart,deleteCart,deleteAllCart,confirmCart,calculatePay} = useContext(context)
@@ -67,7 +68,7 @@ export default function Cart() {
                         lstCart.map(i=>{
                             return( 
                                 <div key={i.idProduct + "div"} className="row my-2 border border-dark bg-white rounded" style={{"height":"5rem"}}>
-                                    <img className="col-2"  key={i.idProduct} src={i.photosProduct} alt={i.nameProduct} style={{"height":"4.8rem"}}></img>
+                                    <img className="col-1"  key={i.idProduct} src={i.photosProduct} alt={i.nameProduct} style={{"height":"5rem"}}></img>
                                     <div className="col-8 my-auto" >
                                         <h5 className="col" style={{"fontSize":"1.1rem"}} key={i.idProduct}> #{i.idProduct} Producto: {i.nameProduct} Precio: {i.priceProduct} Cantidad: {i.quantityProduct}</h5>
                                     </div>
@@ -79,8 +80,8 @@ export default function Cart() {
                         
                     ):(
                         <div className="w-75 m-auto my-5 container justify-content-center">
-                            <h3 className="text-center">Agregue algun producto al carrito</h3>
-                            <img className="w-100 rounded  " alt="carrito vacio" src="https://img.europapress.es/fotoweb/fotonoticia_20220704104046_1200.jpg"></img>
+                            <h3 className="text-center">Agregue algun producto al carrito..</h3>
+
                         </div>
                     )
                     }    
