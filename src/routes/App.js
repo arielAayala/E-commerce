@@ -24,7 +24,7 @@ export default function App() {
             <Route exact path="/register" element={<Register/>}/>
             <Route exact path="/admin" element={<ProtectedRouteAdmin><ProductsProvider><Admin/></ProductsProvider></ProtectedRouteAdmin>} />
             <Route exact path="/products" element={<CartProvider><ProductsProvider><Products></Products></ProductsProvider></CartProvider>}/>
-            <Route exact path="/cart" element={<ProtectedRoute> <CartProvider><Cart></Cart></CartProvider>   </ProtectedRoute> } />
+            <Route exact path="/cart" element={<ProtectedRoute><CartProvider><Cart></Cart></CartProvider></ProtectedRoute> } />
             <Route exact path="/info" element={ <Info/> } />
           </Routes>
           <Footer></Footer>

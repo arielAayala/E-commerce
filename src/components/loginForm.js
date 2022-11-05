@@ -2,7 +2,6 @@ import { useState, useContext } from 'react'
 import context from "../context/context";
 import { useNavigate } from "react-router-dom";
 import logoGoogle from "../assets/static/google.png";
-import Alert from "../components/Alert";
 
 export default function LoginForm() {
 

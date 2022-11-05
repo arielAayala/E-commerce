@@ -14,53 +14,54 @@ export default function CartProvider(props) {
 
      const getCart = async() =>{
          const snap = await getDoc(doc(db,"users",user.uid))
-         setCart(snap.data().cart) 
+         setCart(snap.data().cart)
      }
  
-     const addCart = async(id,name,photo,)=>{
+     const addCart = async(id,name,photo,price)=>{
         try {
-            
             let lst = []
-    
             const snap = await getDoc(doc(db,"users",user.uid))
             lst.push({
                 "idProduct":id,
                 "nameProduct":name,
                 "photosProduct":photo,
+                "priceProduct":price,
                 "quantityProduct":1
             })
-            await snap.data().cart.forEach(i => {
+            await snap.data().cart.forEach( i => {
                 let flag = false
                 let cont = 0
-                lst.forEach(j =>{
-                    if(j.idProduct === i.idProduct){
+                lst.forEach(j => {
+                    if (j.idProduct === i.idProduct) {
                         lst.push({
-                            "idProduct":i.idProduct,
-                            "nameProduct":i.nameProduct,
-                            "photosProduct":i.photosProduct,
-                            "quantityProduct":i.quantityProduct +1
-                        })
-                        lst.splice(cont,1)
-                        flag = true
+                            "idProduct": i.idProduct,
+                            "nameProduct": i.nameProduct,
+                            "photosProduct": i.photosProduct,
+                            "quantityProduct": i.quantityProduct + 1,
+                            "priceProduct": i.priceProduct
+                        });
+                        lst.splice(cont, 1);
+                        flag = true;
                     }
-                    cont +=1
+                    cont += 1;
                 })
                 if (!flag){
                     lst.push({
                         "idProduct":i.idProduct,
                         "nameProduct":i.nameProduct,
                         "photosProduct":i.photosProduct,
-                        "quantityProduct":i.quantityProduct
+                        "quantityProduct":i.quantityProduct,
+                        "priceProduct":i.priceProduct
                     })
                 }
             })
-             
+            console.log( lst);
             await updateDoc(doc(db,"users",user.uid),{
                 "cart":lst
             })
-            await getCart()
+            alert("producto agregado correctamente")
         } catch (error) {
-            throw error.message
+            alert(error.message)
         }
      }
  
@@ -74,39 +75,37 @@ export default function CartProvider(props) {
                     "idProduct":i.idProduct,
                     "nameProduct":i.nameProduct,
                     "photosProduct":i.photosProduct,
-                    "quantityProduct":i.quantityProduct
+                    "quantityProduct":i.quantityProduct,
+                    "priceProduct":i.priceProduct
                 })
             })
             for (let i = 0; i < lst.length; i++) {
                 if (lst[i].idProduct === id){
-                    console.log("encontro")
                     lst.splice(i,1)
                 }
             }
-    
             await updateDoc(doc(db,"users",user.uid),{
                 "cart":lst  
               })
-            await getCart()
+            alert("Producto eliminado del carrito")
         } catch (error) {
-            throw error.message
+            alert(error.message)
         }
      } 
  
      const deleteAllCart = async() =>{
-        try {
-            
+        try {  
             let lst = []
             await updateDoc(doc(db,"users",user.uid),{
                 "cart":lst
             })
-            getCart()
+            alert("Productos eleminados del carrito")
         } catch (error) {
-            throw error.message
+            alert(error.message)
         }
      }
  
-     const confirmCart = async()=>{
+     const confirmCart = async(total)=>{
         try {
             let flagError = false
             let lstProductsSell = []
@@ -129,7 +128,6 @@ export default function CartProvider(props) {
                             await updateDoc(doc(db,"products",j.id),{
                                 "quantityProduct":resta
                             })
-                            console.log("stock Actualizado");
                         }
                     }
                 })
@@ -138,21 +136,29 @@ export default function CartProvider(props) {
                 await updateDoc(doc(db,"users",user.uid),{
                     "cart":[]
                 })
-                await getCart()
                 await addDoc(collection(db,"sells"),{
                     "userId":user.uid,
+                    "totalToPay":total,
                     "detailSell":lstProductsSell,
                     "time":serverTimestamp()
                 })
+                alert("se ha realizado la compra correctamente")
             }else{
                 alert("No hay stock disponible")
             }
         } catch (error) {
             alert(error.message) 
         }
+    }
 
-     }
-
+    const calculatePay = async()=>{
+        const snap = await getDoc(doc(db,"users",user.uid))
+        let total = 0
+        snap.data().cart.forEach( i=>{
+            total += (i.priceProduct * i.quantityProduct)
+        })
+        return total
+    }
 
     return(
         <>
@@ -162,7 +168,8 @@ export default function CartProvider(props) {
             addCart,
             deleteCart,
             deleteAllCart,
-            confirmCart
+            confirmCart,
+            calculatePay
         }} >
             {children}
         </Cartcontext.Provider>

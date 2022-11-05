@@ -64,8 +64,8 @@ export default function ProductsProvider(props) {
     }
 
 
-    const addToCart=async(id,name,photos)=>{
-        await addCart(id,name,photos)
+    const addToCart=async(id,name,photos,price)=>{
+        await addCart(id,name,photos,price)
     }
 
 
