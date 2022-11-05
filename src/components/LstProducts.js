@@ -45,7 +45,7 @@ export default function LstProducts() {
                     }
                     }).map(i =>{
                     return (<div key={i.id + "div"} className="col my-4">
-                        <Product key={i.id} id={i.id}  quantityProduct={i.quantityProduct} nameProduct={i.nameProduct} detailProduct={i.detailProduct} photosProduct={i.photosProduct} ></Product>
+                        <Product key={i.id} id={i.id} priceProduct={i.priceProduct} quantityProduct={i.quantityProduct} nameProduct={i.nameProduct} detailProduct={i.detailProduct} photosProduct={i.photosProduct} ></Product>
                     </div>
                     )
                 })}

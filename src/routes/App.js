@@ -12,6 +12,7 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import Info from "../components/info"
 import ProtectedRouteAdmin from "../containers/protectedRoutedAdmin";
+import CartProvider from "../context/cartContext";
 
 export default function App() {
   return (
@@ -22,8 +23,8 @@ export default function App() {
             <Route exact path="/login" element={<Login/>}/>
             <Route exact path="/register" element={<Register/>}/>
             <Route exact path="/admin" element={<ProtectedRouteAdmin><ProductsProvider><Admin/></ProductsProvider></ProtectedRouteAdmin>} />
-            <Route exact path="/products" element={<ProductsProvider><Products></Products></ProductsProvider>}/>
-            <Route exact path="/cart" element={<ProtectedRoute><Cart></Cart> </ProtectedRoute> } />
+            <Route exact path="/products" element={<CartProvider><ProductsProvider><Products></Products></ProductsProvider></CartProvider>}/>
+            <Route exact path="/cart" element={<ProtectedRoute> <CartProvider><Cart></Cart></CartProvider>   </ProtectedRoute> } />
             <Route exact path="/info" element={ <Info/> } />
           </Routes>
           <Footer></Footer>

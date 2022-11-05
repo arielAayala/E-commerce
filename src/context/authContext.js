@@ -2,7 +2,7 @@ import AuthContext from "./context"
 import React,{useEffect, useState} from "react";
 import {createUserWithEmailAndPassword, onAuthStateChanged ,GoogleAuthProvider, signInWithEmailAndPassword,signOut,signInWithPopup,sendPasswordResetEmail} from "firebase/auth"
 import {auth} from "../services/firebase"
-import { setDoc,doc, getDoc, updateDoc, getDocs, collection, serverTimestamp, addDoc} from "firebase/firestore";
+import { setDoc,doc} from "firebase/firestore";
 import { db } from "../services/firebase";
 
 
@@ -46,123 +46,7 @@ export default function AuthProvider(props){
         })
     }
 
-    //carrito
-    const [cart,setCart] = useState([])
-
-    const getCart = async() =>{
-        const snap = await getDoc(doc(db,"users",user.uid))
-        setCart(snap.data().cart) 
-    }
-
-    const addCart = async(id,name,photo,)=>{
-        let lst = []
-
-        const snap = await getDoc(doc(db,"users",user.uid))
-        lst.push({
-            "idProduct":id,
-            "nameProduct":name,
-            "photosProduct":photo,
-            "quantityProduct":1
-        })
-        await snap.data().cart.forEach(i => {
-            let flag = false
-            let cont = 0
-            lst.forEach(j =>{
-                if(j.idProduct === i.idProduct){
-                    lst.push({
-                        "idProduct":i.idProduct,
-                        "nameProduct":i.nameProduct,
-                        "photosProduct":i.photosProduct,
-                        "quantityProduct":i.quantityProduct +1
-                    })
-                    lst.splice(cont,1)
-                    flag = true
-                }
-                cont +=1
-            })
-            if (!flag){
-                lst.push({
-                    "idProduct":i.idProduct,
-                    "nameProduct":i.nameProduct,
-                    "photosProduct":i.photosProduct,
-                    "quantityProduct":i.quantityProduct
-                })
-            }
-        })
-         
-        await updateDoc(doc(db,"users",user.uid),{
-            "cart":lst
-        })
-        await getCart()
-    }
-
-    const deleteCart = async(id)=>{
-        const lst = []
-        const snap = await getDoc(doc(db,"users",user.uid))
-        await snap.data().cart.forEach(i=>{
-            lst.push({
-                "idProduct":i.idProduct,
-                "nameProduct":i.nameProduct,
-                "photosProduct":i.photosProduct,
-                "quantityProduct":i.quantityProduct
-            })
-        })
-        for (let i = 0; i < lst.length; i++) {
-            if (lst[i].idProduct === id){
-                console.log("encontro")
-                lst.splice(i,1)
-            }
-        }
-
-        await updateDoc(doc(db,"users",user.uid),{
-            "cart":lst  
-          })
-        await getCart()
-    } 
-
-    const deleteAllCart = async() =>{
-        let lst = []
-        await updateDoc(doc(db,"users",user.uid),{
-            "cart":lst
-        })
-        getCart()
-    }
-
-    const confirmCart = async()=>{
-        let lstProductsSell = []
-        const snapProduct = (await getDocs(collection(db,"products")))
-        const snapCart = (await getDoc(doc(db,"users",user.uid)))
-        snapCart.data().cart.forEach(i=>{
-            snapProduct.forEach(async j=>{
-                if(j.id ===i.idProduct){
-                    let resta =  j.data().quantityProduct- i.quantityProduct
-                    if(resta < 0){
-                        // eslint-disable-next-line no-throw-literal
-                        throw "No hay stock disponible"
-                    }else{
-                        lstProductsSell.push({
-                            "idProduct":i.idProduct,
-                            "nameProduct":i.nameProduct,
-                            "quantityProductSell":i.quantityProduct,
-                        })
-                        await updateDoc(doc(db,"products",j.id),{
-                            "quantityProduct":resta
-                        })
-                        console.log("stock Actualizado");
-                    }
-                }
-            })
-        })
-        await updateDoc(doc(db,"users",user.uid),{
-            "cart":[]
-        })
-        await getCart()
-        await addDoc(collection(db,"sells"),{
-            "userId":user.uid,
-            "detailSell":lstProductsSell,
-            "time":serverTimestamp()
-        })
-    }
+   
 
     return (
         <>
@@ -175,12 +59,7 @@ export default function AuthProvider(props){
             logInGoogle,
             logOut,
             addUser,
-            getCart,
-            lstCart:cart,
-            addCart,
-            deleteCart,
-            deleteAllCart,
-            confirmCart
+            
             }}>
             {children}
         </AuthContext.Provider>

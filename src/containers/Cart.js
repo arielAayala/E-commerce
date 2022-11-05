@@ -12,16 +12,27 @@ export default function Cart() {
 
   
     const handleDelete = async(id)=>{
-        console.log("borrando... "+id)
-        await deleteCart(id)
+        try {
+            await deleteCart(id)
+        } catch (error) {
+            alert (error)
+        }
     }
 
     const handleDeleteAll = async() =>{
-        await deleteAllCart()
+        try {
+            await deleteAllCart()
+        } catch (error) {
+            alert(error)
+        }
     }
 
     const handleConfirmCart= async()=>{
-        await confirmCart()
+        try {
+            await confirmCart()
+        } catch (error) {
+            alert(error)
+        }
     }
 
     return(
