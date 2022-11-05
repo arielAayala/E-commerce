@@ -35,6 +35,10 @@ export default function Table() {
             selector: row => row.quantityProduct,
             sortable: true,
         },{
+            name: 'Price',
+            selector: row => row.priceProduct,
+            sortable:true
+        },{
             name:"",
             selector: row => (<ButtonUpdate key={row.id} id={row.id} detailProduct={row.detailProduct} photosProduct={row.photosProduct} quantityProduct={row.quantityProduct} categoryProduct={row.categoryProduct} nameProduct={row.nameProduct} ></ButtonUpdate>)
         },{

@@ -37,23 +37,25 @@ export default function ProductsProvider(props) {
         setProducts(lstProducts)
     }
 
-    const addProduct = async(name,detail,photos,category,quantity) => {
+    const addProduct = async(name,detail,photos,category,quantity,price) => {
         await setDoc(doc(db,"products", (await incrementalCount()).toString()),{
             nameProduct: name,
             detailProduct:detail,
             photosProduct:photos,
             categoryProduct:category,
-            quantityProduct: parseInt(quantity)
+            quantityProduct: parseInt(quantity),
+            priceProduct: parseFloat(price).toFixed(2)
         })
     }
 
-    const updateProduct = async(id,name,detail,photos,category,quantity) =>{
+    const updateProduct = async(id,name,detail,photos,category,quantity,price) =>{
         await updateDoc(doc(db,"products",id),{
             nameProduct: name,
             detailProduct:detail,
             photosProduct:photos,
             categoryProduct:category,
-            quantityProduct:quantity
+            quantityProduct:parseInt(quantity),
+            priceProduct: parseFloat(price).toFixed(2)
         })
     }
 

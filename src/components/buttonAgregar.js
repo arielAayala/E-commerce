@@ -12,7 +12,8 @@ export default function ButtonAgregar() {
         detailProduct:"",
         quantityProduct: "",
         categoryProduct:"",
-        photosProduct:""
+        photosProduct:"",
+        priceProduct:""
     })
     
     const handleChange = ({target:{name,value}}) => {setInput({...input,[name]:value})}
@@ -20,16 +21,20 @@ export default function ButtonAgregar() {
     const handleAdd = async(e) =>{
         e.preventDefault()
         try {
-            if (input.nameProduct=== "" || input.detailProduct === "" || input.categoryProduct=== "" || input.quantityProduct==="" || input.photosProduct===""){
+            if (input.nameProduct=== "" || input.detailProduct === "" || input.categoryProduct=== "" || input.quantityProduct==="" || input.photosProduct==="" || input.priceProduct){
                 // eslint-disable-next-line
                 throw "Las casillas no puedes estar vacias"
             }else if (isNaN(parseFloat(input.quantityProduct)) || !Number.isInteger(parseFloat(input.quantityProduct))){
                 // eslint-disable-next-line
-                throw "Ingresar un cantidad entera"
+                throw "Ingresar una cantidad entera correspondiente"
+            }else if(isNaN(parseFloat(input.priceProduct)) || typeof input.priceProduct=== "number" ){
+                // eslint-disable-next-line
+                throw  "Ingrese un precio correspondiente"
             }
-            await  addProduct(input.nameProduct, input.detailProduct,input.photosProduct ,input.categoryProduct,input.quantityProduct)
+            await  addProduct(input.nameProduct, input.detailProduct,input.photosProduct ,input.categoryProduct,input.quantityProduct,input.priceProduct)
             getProducts()
             document.getElementById("formAddProduct").reset()
+            alert("Producto agregado exitosamente")
         } catch (error) {
             console.log(error)
             alert(error)
@@ -53,6 +58,7 @@ export default function ButtonAgregar() {
                                 <textarea className="form-control mb-2"  name="detailProduct" placeholder="Detalle del producto" onChange={handleChange} ></textarea>
                                 <input className="form-control mb-2"   name="categoryProduct" placeholder="Categoria del producto" onChange={handleChange} ></input>
                                 <input className="form-control mb-2"   name="quantityProduct" placeholder="Cantidad del producto" onChange={handleChange} ></input>
+                                <input className="form-control mb-2"   name="priceProduct" placeholder="Precio del producto" onChange={handleChange} ></input>
                                 <input className="form-control mb-2"   name="photosProduct" placeholder="Fotos del producto" onChange={handleChange} ></input>
                             </form>
                         </div>

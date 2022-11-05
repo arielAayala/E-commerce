@@ -9,6 +9,7 @@ export default function ButtonDelete(props) {
         try {
             await deleteProduct(props.id)
             getProducts()
+            alert("Producto eliminado exitosamente")
         } catch (error) {
             console.log(error)
             alert(error)
