@@ -35,11 +35,10 @@ export default function AuthProvider(props){
     },[])
 
     //guardar usuarios en DB
-    const addUser = async(user, userName) =>{
+    const addUser = async(user) =>{
         if (!user) return
         await setDoc(doc(db,"users",user.user.uid),{
             uid: user.user.uid,
-            displayNameUser: userName ? userName: user.user.displayName,
             emailUser: user.user.email,
             photoUser: user.user.photoURL,
             cart:[]
@@ -58,8 +57,7 @@ export default function AuthProvider(props){
             resetPassword,
             logInGoogle,
             logOut,
-            addUser,
-            
+            addUser
             }}>
             {children}
         </AuthContext.Provider>

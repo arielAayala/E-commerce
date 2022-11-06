@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function RegisterForm() {
   const [user, setUser] = useState({
-    userName: "",
     email: "",
     password: ""
   })
@@ -22,7 +21,7 @@ export default function RegisterForm() {
     // console.log(user)
     try {
       const userRegister = await register(user.email, user.password)
-      addUser(userRegister, user.userName)
+      addUser(userRegister)
       navigate("/")
       // console.log(userRegister)
     } catch (error) {
@@ -39,29 +38,8 @@ export default function RegisterForm() {
 
   return (
     <>
-      <div className='container center'>
+      <div className='card container center border border-3 border-secondary'>
         <form onSubmit={handleSubmit} className="column mt-3 g-3 mb-3 p-2 needs-validation card-image-overlay">
-          {/* <div className="mb-3">
-              <label htmlFor="exampleInputName" className="form-label">Nombre de usuario</label>
-              <input type="text" name="userName" className="form-control my-2" onChange={handleChange} defaultValue="" id="exampleInputName" placeholder='Ingrese su nombre y apellido' />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="exampleInputEmail1" className="form-label">Correo electronico</label>
-              <input type="email" name="email" className="form-control my-2" onChange={handleChange} defaultValue="" id="exampleInputEmail1" placeholder='Ingrese su correo electronico' />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="exampleInputPassword1" className="form-label">Contraseña</label>
-              <input type="password" name="password" className="form-control my-2" onChange={handleChange} defaultValue="" id="exampleInputPassword1" placeholder='Ingrese su contraseña' />
-            </div>
-            <div className="mb-3 form-check">
-              <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-              <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
-            </div>
-            <button type="submit" className="btn btn-primary">Guardar</button> */}
-          <div className="mb-3">
-            <label htmlFor="userNameValidate" className="form-label">Nombre de usuario</label>
-            <input type="text" name="userName" className="form-control my-2" onChange={handleChange} defaultValue="" id="userNameValidate" placeholder='Ingrese su nombre de usuario' required />
-          </div>
           <div className="mb-3">
             <label htmlFor="emailValidation" className="form-label">Correo electronico</label>
             <input type="email" name="email" className="form-control my-2" onChange={handleChange} defaultValue="" id="emailValidation" placeholder='Ingrese su correo electronico' required />

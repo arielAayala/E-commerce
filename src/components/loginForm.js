@@ -21,7 +21,8 @@ export default function LoginForm() {
         e.preventDefault()
         setError("");
         try {
-            await logIn(user.email, user.password)
+            const userLog = await logIn(user.email, user.password)
+            addUser(userLog)
             navigate("/")
         } catch {
             setError(error.code)
@@ -38,7 +39,7 @@ export default function LoginForm() {
     const handleLogInGoogle = async (e) => {
         try {
             const userLoginGoogle = await logInGoogle()
-            addUser(userLoginGoogle, null)
+            addUser(userLoginGoogle)
             navigate("/")
         } catch {
             setError(error)
@@ -71,10 +72,12 @@ export default function LoginForm() {
                     </div>
                     <div className='justify-between'>
                         <button type="submit" className="btn btn-primary">Continuar</button>
-                        <a href="#!" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" onClick={handleResetPassword}>¿Olvidaste tu contraseña?</a>
+                        <button className="btn btn-secondary inline-block border border-1 border-light bg-light text-dark" onClick={handleResetPassword}>¿Olvidaste tu contraseña?</button>
                     </div>
-                    <h6>Ingresar con <img onClick={handleLogInGoogle} alt="Google" className='m-3 border' width="30" height="30" src={logoGoogle} /></h6>
-                    <h6>¿Aún no tienes una cuenta? <a href={("/register")}>Únete</a></h6>
+                    <div>
+                        <h6>Ingresar con <button className='btn btn-light rounded-circle' onClick={handleLogInGoogle}><img alt="Google" width="30" height="30" src={logoGoogle} /></button></h6>
+                        <h6>¿Aún no tienes una cuenta? <a href={("/register")}>Únete</a></h6>
+                    </div>
                 </form>
             </div>
         </>
