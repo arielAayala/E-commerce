@@ -2,6 +2,7 @@ import { useState, useContext } from 'react'
 import context from "../context/context";
 import { useNavigate } from "react-router-dom";
 import logoGoogle from "../assets/static/google.png";
+import logoLoginForm from "../assets/static/zerotwoLoginForm.jpg";
 
 export default function LoginForm() {
 
@@ -51,23 +52,24 @@ export default function LoginForm() {
 
     return (
         <>
-            <div className='container card center border border-3 border-secondary'>
-                <form onSubmit={handleLogIn} className="column mt-3 g-3 mb-3 p-2 needs-validation card-image-overlay" noValidate>
+            <div className='card col-10 bg-dark mx-auto'>
+                <img src={logoLoginForm} className='card-img' width="50" height="620" alt='loginFormLogo'/>
+                <form onSubmit={handleLogIn} className="column mt-3 g-3 mb-3 p-2 needs-validation card-img-overlay" noValidate>
                     <div className="mb-3">
-                        <label htmlFor="emailValidation" className="form-label">Correo electronico</label>
+                        <label htmlFor="emailValidation" className="form-label text-light">Correo electronico</label>
                         <input type="email" name="email" className="form-control my-2" onChange={handleChange} defaultValue="" id="emailValidation" placeholder='Ingrese su correo electronico' required />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="passwordValidation" className="form-label">Contraseña</label>
+                        <label htmlFor="passwordValidation" className="form-label text-light">Contraseña</label>
                         <input type="password" name="password" className="form-control my-2" onChange={handleChange} defaultValue="" id="passwordValidation" placeholder='*********' required />
                     </div>
-                    <div className='justify-between'>
+                    <div className='mb-3'>
                         <button type="submit" className="btn btn-primary">Continuar</button>
-                        <button className="btn btn-secondary inline-block border border-1 border-light bg-light text-dark" onClick={handleResetPassword}>¿Olvidaste tu contraseña?</button>
+                        <button className="btn btn-secondary inline-block text-dark my-2" onClick={handleResetPassword}>¿Olvidaste tu contraseña?</button>
                     </div>
-                    <div>
-                        <h6>Ingresar con <button className='btn btn-light rounded-circle' onClick={handleLogInGoogle}><img alt="Google" width="30" height="30" src={logoGoogle} /></button></h6>
-                        <h6>¿Aún no tienes una cuenta? <a href={("/register")}>Únete</a></h6>
+                    <div className='mb-3'>
+                        <h6 className='text-light'>Ingresar con <button className='btn btn-light rounded-circle' onClick={handleLogInGoogle}><img alt="Google" width="30" height="30" src={logoGoogle} /></button></h6>
+                        <h6 className='text-light'>¿Aún no tienes una cuenta? <a href={("/register")}>Únete</a></h6>
                     </div>
                 </form>
             </div>
