@@ -1,5 +1,6 @@
 import {useContext, useState} from "react"
 import context from "../context/context"
+import EditAlert from "./Alert"
 
 export default function ButtonUpdate(props) {
     
@@ -33,16 +34,17 @@ export default function ButtonUpdate(props) {
             }
             await  updateProduct(props.id,input.nameProduct, input.detailProduct,input.photosProduct ,input.categoryProduct,input.quantityProduct,input.priceProduct)
             getProducts()
-            alert("Producto actualizado correctamente")
+            document.getElementById("alertUpdate").classList.remove("d-none")
         } catch (error) {
-            console.log(error)
-            alert(error)
+            document.getElementById("alertErrorUpdate").classList.remove("d-none")
         }
     }
 
 
     return (
         <>
+            <EditAlert id={"alertErrorUpdate"} message={"Hubo un error al actualizar el producto"} severity={"error"}></EditAlert>
+            <EditAlert id={"alertUpdate"} message={"Se ha actualizado el producto correctamente"} ></EditAlert>
             <button className="btn btn-dark" data-bs-toggle="modal" data-bs-target={"#modalUpdate"+props.id}>🖊</button>
             <div className="modal fade" id={"modalUpdate"+props.id} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">

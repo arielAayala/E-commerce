@@ -1,5 +1,6 @@
 import {useContext, useState} from "react"
 import context from "../context/context"
+import EditAlert from "./Alert"
 
 export default function ButtonAgregar() {
     
@@ -34,16 +35,17 @@ export default function ButtonAgregar() {
             await  addProduct(input.nameProduct, input.detailProduct,input.photosProduct ,input.categoryProduct,input.quantityProduct,input.priceProduct)
             getProducts()
             document.getElementById("formAddProduct").reset()
-            alert("Producto agregado exitosamente")
+            document.getElementById("alertAdd").classList.remove("d-none")
         } catch (error) {
-            console.log(error)
-            alert(error)
+            document.getElementById("alertErrorAdd").classList.remove("d-none")
         }
     }
 
 
     return (
         <>
+            <EditAlert id={"alertErrorAdd"} message={"Hubo un error al agregar el producto"} severity={"error"}></EditAlert>
+            <EditAlert id={"alertAdd"} message={"Se ha agregado el producto existosamente"} ></EditAlert>
             <button className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modalAdd">➕</button>
             <div className="modal fade" id="modalAdd" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">

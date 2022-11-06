@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import context from "../context/context"
-
+import EditAlert from "./Alert"
 export default function ButtonDelete(props) {
     
     const {deleteProduct, getProducts} = useContext(context)
@@ -9,15 +9,19 @@ export default function ButtonDelete(props) {
         try {
             await deleteProduct(props.id)
             getProducts()
-            alert("Producto eliminado exitosamente")
+            document.getElementById("alertDelete").classList.remove("d-none")
         } catch (error) {
-            console.log(error)
-            alert(error)
+            document.getElementById("alertErrorDelete").classList.remove("d-none")
         }
 
     }
 
     return(
-        <button className="btn btn-danger" onClick={handleDelete} >🗑</button>
+        <>
+            <EditAlert id={"alertErrorDelete"} message={"Hubo un error al eliminar el producto"} severity={"error"}></EditAlert>
+            <EditAlert id={"alertDelete"} message={"Se ha eliminado el producto corectamente"} ></EditAlert>
+            <button className="btn btn-danger" onClick={handleDelete} >🗑</button>
+        </>
+        
     )
 };

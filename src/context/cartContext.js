@@ -6,7 +6,7 @@ import { getDoc,getDocs,doc,collection,updateDoc,addDoc,serverTimestamp } from "
 
 export default function CartProvider(props) {
     const {children} = props
-    const {user} = useContext(context)
+    const {user,logOut} = useContext(context)
 
 
      //carrito
@@ -55,11 +55,9 @@ export default function CartProvider(props) {
                     })
                 }
             })
-            console.log( lst);
             await updateDoc(doc(db,"users",user.uid),{
                 "cart":lst
             })
-            alert("producto agregado correctamente")
         } catch (error) {
             alert(error.message)
         }
@@ -87,7 +85,6 @@ export default function CartProvider(props) {
             await updateDoc(doc(db,"users",user.uid),{
                 "cart":lst  
               })
-            alert("Producto eliminado del carrito")
         } catch (error) {
             alert(error.message)
         }
@@ -99,7 +96,6 @@ export default function CartProvider(props) {
             await updateDoc(doc(db,"users",user.uid),{
                 "cart":lst
             })
-            alert("Productos eleminados del carrito")
         } catch (error) {
             alert(error.message)
         }
@@ -143,9 +139,6 @@ export default function CartProvider(props) {
                     "detailSell":lstProductsSell,
                     "time":serverTimestamp()
                 })
-                alert("se ha realizado la compra correctamente")
-            }else{
-                alert("No hay stock disponible")
             }
         } catch (error) {
             alert(error.message) 
@@ -161,6 +154,16 @@ export default function CartProvider(props) {
         return total
     }
 
+    const calculateElementsInCart = async()=>{
+        const snap = await getDoc(doc(db,"users",user.uid))
+        let elements = 0
+        snap.data().cart.forEach(i =>{
+            elements += i.quantityProduct
+        })
+        return elements
+    }
+
+
     return(
         <>
         <Cartcontext.Provider value={{
@@ -170,7 +173,10 @@ export default function CartProvider(props) {
             deleteCart,
             deleteAllCart,
             confirmCart,
-            calculatePay
+            calculatePay,
+            user,
+            calculateElementsInCart,
+            logOut
         }} >
             {children}
         </Cartcontext.Provider>

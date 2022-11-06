@@ -61,7 +61,6 @@ export default function Table() {
 
 	useEffect(() => {
         getProducts()
-        console.log("cargar")
         setTimeout((() => {setPeding(false)}),2200)
         // eslint-disable-next-line
 	}, []);

@@ -32,7 +32,7 @@ export default function Carrousel (props) {
     })
     return (
         <>
-            <div className='d-flex justify-content-center ' style={{"height":"25rem"}} >
+            <div className='d-flex justify-content-center rounded' style={{"height":"25rem"}} >
                 <button className='btn btn-outline-primary rounded-0 ' onClick={previous}>{'<'}</button>
                 <img className='w-75 border border-primary' src={image} alt={`${image}`}/>
                 <button className='btn btn-outline-primary  rounded-0' onClick={next}>{'>'}</button>

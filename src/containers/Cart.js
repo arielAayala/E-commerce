@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import context from "../context/context"
-
+import EditAlert from "../components/Alert"
 export default function Cart() {
     const {getCart,lstCart,deleteCart,deleteAllCart,confirmCart,calculatePay} = useContext(context)
 
@@ -21,6 +21,7 @@ export default function Cart() {
             await deleteCart(id)
             getCart()
             await loadPay()
+            document.getElementById("alertDelete").classList.remove("d-none")
         } catch (error) {
             alert (error)
         }
@@ -31,6 +32,7 @@ export default function Cart() {
             await deleteAllCart()
             getCart()
             await loadPay()
+            document.getElementById("alertDeleteAll").classList.remove("d-none")
         } catch (error) {
             alert(error)
         }
@@ -41,6 +43,7 @@ export default function Cart() {
             await confirmCart(totalPay)
             getCart()
             await loadPay()
+            document.getElementById("alertConfirmBuy").classList.remove("d-none")
         } catch (error) {
             alert(error)
         }
@@ -48,6 +51,10 @@ export default function Cart() {
 
     return(
         <>
+           
+           <EditAlert id={"alertDeleteAll"} message={"Se han borrado todos los productos del carrito!"}></EditAlert>
+           <EditAlert id={"alertDelete"} message={"Se ha borrado el producto del carrito"}></EditAlert>
+           <EditAlert id={"alertConfirmBuy"} message={"Se ha realizado la compra correctamente"}></EditAlert>
             <div className="my-5  py-2" style={{"backgroundColor":"#E1E1E1"}}>
                 <h2 className="w-100 text-center bg-secondary rounded-pill">Carrito🛒</h2>
                 {lstCart.length > 0 ?(
@@ -67,7 +74,7 @@ export default function Cart() {
                         lstCart.map(i=>{
                             return( 
                                 <div key={i.idProduct + "div"} className="row my-2 border border-dark bg-white rounded" style={{"height":"5rem"}}>
-                                    <img className="col-1"  key={i.idProduct} src={i.photosProduct} alt={i.nameProduct} style={{"height":"5rem"}}></img>
+                                    <img className="col-1 my-auto"  key={i.idProduct} src={i.photosProduct} alt={i.nameProduct} style={{"height":"4.8rem"}}></img>
                                     <div className="col-8 my-auto" >
                                         <h5 className="col" style={{"fontSize":"1.1rem"}} key={i.idProduct}> #{i.idProduct} Producto: {i.nameProduct} Precio: {i.priceProduct} Cantidad: {i.quantityProduct}</h5>
                                     </div>

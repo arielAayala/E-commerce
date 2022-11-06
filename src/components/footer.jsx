@@ -7,7 +7,8 @@ import icon from "../assets/static/icons/hanna.png"
 
 export default function Footer() {
     return (
-        <div className="bg-warning w-100">
+        <>
+            <div className="bg-warning w-100 container-fluid">
             <footer className="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5">
                 <div className="col mb-auto fixed-bottom">
                     <img src={icon} href="/" alt="iconFailed" style={{"width":"55px"}}></img>
@@ -40,5 +41,6 @@ export default function Footer() {
                 </div>
             </footer>
         </div>
+        </>  
     )
 }

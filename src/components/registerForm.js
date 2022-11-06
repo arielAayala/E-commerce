@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import context from "../context/context";
 import { useNavigate } from "react-router-dom";
+import EditAlert from './Alert';
 
 export default function RegisterForm() {
   const [user, setUser] = useState({
@@ -20,15 +21,16 @@ export default function RegisterForm() {
     try {
       const userRegister = await register(user.email, user.password)
       addUser(userRegister)
-      navigate("/")
+      navigate("/login")
       // console.log(userRegister)
     } catch (error) {
-      alert(error.message)
+      document.getElementById("alertErrorRegister").classList.remove("d-none")
     }
   }
 
   return (
     <>
+      <EditAlert id={"alertErrorRegister"} message={"Hubo un error al momento registrarse"} severity={"error"}></EditAlert>
       <div className='card container center border border-3 border-secondary'>
         <form onSubmit={handleSubmit} className="column mt-3 g-3 mb-3 p-2 needs-validation card-image-overlay" >
           <div className="mb-3">
