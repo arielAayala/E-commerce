@@ -12,12 +12,10 @@ export default function RegisterForm() {
 
   const handleChange = ({ target: { value, name } }) => setUser({ ...user, [name]: value })
 
-  const [error, setError] = useState("")
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("")
     // console.log(user)
     try {
       const userRegister = await register(user.email, user.password)
@@ -25,14 +23,7 @@ export default function RegisterForm() {
       navigate("/")
       // console.log(userRegister)
     } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        setError("El correo ya esta registrado")
-      } else if (error.code === "auth/weak-password") {
-        setError("La contraseña debe tener minimo 6 caracteres")
-      } else if (error.code === "auth/invalid-email") {
-        setError("El email no es valido")
-      }
-      // console.log(error)
+      alert(error.message)
     }
   }
 

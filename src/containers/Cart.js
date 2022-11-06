@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react"
 import context from "../context/context"
-import cartIcon from "../assets/static/icons/cart-icon.png"
 
 export default function Cart() {
     const {getCart,lstCart,deleteCart,deleteAllCart,confirmCart,calculatePay} = useContext(context)

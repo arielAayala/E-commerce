@@ -7,7 +7,7 @@ import icon from "../assets/static/icons/hanna.png"
 
 export default function Footer() {
     return (
-        <div className="container bg-warning">
+        <div className="bg-warning w-100">
             <footer className="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5">
                 <div className="col mb-auto fixed-bottom">
                     <img src={icon} href="/" alt="iconFailed" style={{"width":"55px"}}></img>
@@ -34,8 +34,8 @@ export default function Footer() {
                 <div className="col mb-3">
                     <h5> Contactos </h5>
                 <ul className="nav flex-column">
-                <li className="nav-item mb-2"><a className="nav-link p-0 text-muted"> WhatsApp </a></li>
-                <li className="nav-item mb-2"><a className="nav-link p-0 text-muted"> Correo y tal</a></li>
+                <li className="nav-item mb-2"><a target="_blank" rel="noreferrer" href="https://web.whatsapp.com/" className="nav-link p-0 text-muted"> WhatsApp </a></li>
+                <li className="nav-item mb-2"><a  target="_blank" rel="noreferrer" href="https://outlook.live.com/" className="nav-link p-0 text-muted"> Correo </a></li>
                 </ul>
                 </div>
             </footer>

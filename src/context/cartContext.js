@@ -124,6 +124,7 @@ export default function CartProvider(props) {
                                 "idProduct":i.idProduct,
                                 "nameProduct":i.nameProduct,
                                 "quantityProductSell":i.quantityProduct,
+                                "priceProduct":i.priceProduct
                             })
                             await updateDoc(doc(db,"products",j.id),{
                                 "quantityProduct":resta

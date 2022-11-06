@@ -14,26 +14,17 @@ export default function LoginForm() {
 
     const handleChange = ({ target: { value, name } }) => setUser({ ...user, [name]: value })
 
-    const [error, setError] = useState("")
     const navigate = useNavigate()
 
     const handleLogIn = async (e) => {
         e.preventDefault()
-        setError("");
+
         try {
             const userLog = await logIn(user.email, user.password)
             addUser(userLog)
             navigate("/")
         } catch (error) {
-            setError(error.message)
-            console.log(error)
-            if (error === "auth/wrong-password") {
-                setError("La contraseña es incorrecta")
-            } else if (error === "auth/user-not-found") {
-                setError("El usuario no fue encontrado")
-            } else if ((error === "auth/invalid-email")) {
-                setError("El correo electrónico no es válido")
-            }
+            alert(error.message)
         }
     }
 
@@ -42,19 +33,19 @@ export default function LoginForm() {
             const userLoginGoogle = await logInGoogle()
             addUser(userLoginGoogle)
             navigate("/")
-        } catch {
-            setError(error)
+        } catch(error) {
+            alert(error.message)
         }
     }
 
     const handleResetPassword = async (e) => {
         e.preventDefault();
-        if (!user.email) return setError("Ingrese un correo para cambiar contraseña")
+        if (!user.email) alert("Ingrese un correo para cambiar contraseña")
         try {
             await resetPassword(user.email)
-            setError("Te hemos enviado un correo")
+            alert("Te hemos enviado un correo")
         } catch (error) {
-            setError(error.message)
+            alert(error.message)
         }
     }
 
