@@ -24,13 +24,14 @@ export default function LoginForm() {
             const userLog = await logIn(user.email, user.password)
             addUser(userLog)
             navigate("/")
-        } catch {
-            setError(error.code)
-            if (error.code === "auth/wrong-password") {
+        } catch (error) {
+            setError(error.message)
+            console.log(error)
+            if (error === "auth/wrong-password") {
                 setError("La contraseña es incorrecta")
-            } else if (error.code === "auth/user-not-found") {
+            } else if (error === "auth/user-not-found") {
                 setError("El usuario no fue encontrado")
-            } else if ((error.code === "auth/invalid-email")) {
+            } else if ((error === "auth/invalid-email")) {
                 setError("El correo electrónico no es válido")
             }
         }
@@ -60,8 +61,7 @@ export default function LoginForm() {
     return (
         <>
             <div className='container card center border border-3 border-secondary'>
-                {/* {error && <Alert message={error} />} */}
-                <form onSubmit={handleLogIn} className="column mt-3 g-3 mb-3 p-2 needs-validation card-image-overlay">
+                <form onSubmit={handleLogIn} className="column mt-3 g-3 mb-3 p-2 needs-validation card-image-overlay" noValidate>
                     <div className="mb-3">
                         <label htmlFor="emailValidation" className="form-label">Correo electronico</label>
                         <input type="email" name="email" className="form-control my-2" onChange={handleChange} defaultValue="" id="emailValidation" placeholder='Ingrese su correo electronico' required />

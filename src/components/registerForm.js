@@ -39,7 +39,7 @@ export default function RegisterForm() {
   return (
     <>
       <div className='card container center border border-3 border-secondary'>
-        <form onSubmit={handleSubmit} className="column mt-3 g-3 mb-3 p-2 needs-validation card-image-overlay">
+        <form onSubmit={handleSubmit} className="column mt-3 g-3 mb-3 p-2 needs-validation card-image-overlay" >
           <div className="mb-3">
             <label htmlFor="emailValidation" className="form-label">Correo electronico</label>
             <input type="email" name="email" className="form-control my-2" onChange={handleChange} defaultValue="" id="emailValidation" placeholder='Ingrese su correo electronico' required />
