@@ -16,7 +16,7 @@ export default function Login() {
             ) : (
                 <div className="w-full">
                     <h1 className="text-center p-1 mb-0">Inicio de Sesión</h1>
-                    <div className="container mx-auto p-2">
+                    <div className="container p-2">
                         <LoginForm></LoginForm>
                     </div>
                 </div>

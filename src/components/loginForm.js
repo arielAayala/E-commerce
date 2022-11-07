@@ -2,7 +2,6 @@ import { useState, useContext } from 'react'
 import context from "../context/context";
 import { useNavigate } from "react-router-dom";
 import logoGoogle from "../assets/static/google.png";
-import logoLoginForm from "../assets/static/zerotwoLoginForm.jpg";
 import EditAlert from './Alert';
 
 export default function LoginForm() {
@@ -54,24 +53,23 @@ export default function LoginForm() {
         <>
             <EditAlert id={"alertErrorReset"} message={"Hubo un error al resetear la contraseña, Por favor ingrese un email correcto"} severity={"error"}></EditAlert>
             <EditAlert id={"alertSendReset"} message={"Te hemos enviado un correo"} ></EditAlert>
-            <div className='card col-10 bg-dark mx-auto'>
-                <img src={logoLoginForm} className='card-img' width="50" height="620" alt='loginFormLogo'/>
-                <form onSubmit={handleLogIn} className="column mt-3 g-3 mb-3 p-2 needs-validation card-img-overlay" noValidate>
+            <div className='card col-10 mx-auto border border-2 border-dark'>
+                <form onSubmit={handleLogIn} className="column mt-3 g-3 mb-3 p-2 needs-validation" noValidate>
                     <div className="mb-3">
-                        <label htmlFor="emailValidation" className="form-label text-light">Correo electronico</label>
+                        <label htmlFor="emailValidation" className="form-label text-dark">Correo electronico</label>
                         <input autoComplete='on' type="email" name="email" className="form-control my-2" onChange={handleChange} defaultValue="" id="emailValidation" placeholder='Ingrese su correo electronico' required />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="passwordValidation" className="form-label text-light">Contraseña</label>
+                        <label htmlFor="passwordValidation" className="form-label text-dark">Contraseña</label>
                         <input autoComplete='on' type="password" name="password" className="form-control my-2" onChange={handleChange} defaultValue="" id="passwordValidation" placeholder='*********' required />
                     </div>
                     <div className='mb-3'>
                         <button type="submit" className="btn btn-primary">Continuar</button>
-                        <button className="btn btn-secondary inline-block text-dark my-2" onClick={handleResetPassword}>¿Olvidaste tu contraseña?</button>
+                        <button className="btn btn-light inline-block text-dark my-2 mx-2" onClick={handleResetPassword}>¿Olvidaste tu contraseña?</button>
                     </div>
                     <div className='mb-3'>
-                        <h6 className='text-light'>Ingresar con <button className='btn btn-light rounded-circle' onClick={handleLogInGoogle}><img alt="Google" width="30" height="30" src={logoGoogle} /></button></h6>
-                        <h6 className='text-light'>¿Aún no tienes una cuenta? <a href={("/register")}>Únete</a></h6>
+                        <h6 className='text-dark'>Ingresar con <button className='btn btn-light rounded-circle' onClick={handleLogInGoogle}><img alt="Google" width="30" height="30" src={logoGoogle} /></button></h6>
+                        <h6 className='text-dark'>¿Aún no tienes una cuenta? <a href={("/register")}>Únete</a></h6>
                     </div>
                 </form>
             </div>
