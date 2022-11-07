@@ -66,7 +66,6 @@ export default function LoginForm() {
                     <div className='mb-1 mx-2'>
                         <button type="submit" className="btn btn-primary">Continuar</button>
                     </div>
-                   
                 </form>
                     <div className='mb-3 mx-2'>
                         <button className="btn btn-light inline-block text-dark my-2 mx-2" onClick={handleResetPassword}>¿Olvidaste tu contraseña?</button>
