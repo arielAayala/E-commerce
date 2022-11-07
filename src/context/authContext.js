@@ -1,6 +1,6 @@
 import AuthContext from "./context"
 import React,{useEffect, useState} from "react";
-import {createUserWithEmailAndPassword, onAuthStateChanged ,GoogleAuthProvider, signInWithEmailAndPassword,signOut,signInWithPopup,sendPasswordResetEmail} from "firebase/auth"
+import {createUserWithEmailAndPassword, onAuthStateChanged ,GoogleAuthProvider, sendEmailVerification,signInWithEmailAndPassword,signOut,signInWithPopup,sendPasswordResetEmail} from "firebase/auth"
 import {auth} from "../services/firebase"
 import { setDoc,doc} from "firebase/firestore";
 import { db } from "../services/firebase";
@@ -15,7 +15,12 @@ export default function AuthProvider(props){
 
     const logIn = (email,password)=> signInWithEmailAndPassword(auth,email,password)
 
-    const register = (email,password) => createUserWithEmailAndPassword(auth,email,password)
+    const register = async (email,password) => {
+        const newUser= await createUserWithEmailAndPassword(auth,email,password)
+        await sendEmailVerification(newUser.user)
+        await logOut()
+         
+        }
 
     const resetPassword = (email) => sendPasswordResetEmail(auth,email)
 
@@ -57,7 +62,8 @@ export default function AuthProvider(props){
             resetPassword,
             logInGoogle,
             logOut,
-            addUser
+            addUser,
+            sendEmailVerification
             }}>
             {children}
         </AuthContext.Provider>
