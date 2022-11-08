@@ -39,7 +39,7 @@ export default function Profile() {
                 <div className="w-75 m-auto">
                     <h1 className="text-center ">Perfil</h1>
                     <h6 className="text-center">Bienvenido {user.email}</h6>
-                    {lstBuy.length>0?(
+                    {lstBuy.length > 0 ? (
                         <>
                             <h6 className="text-center">Tus compras:</h6>
                             <div className="container border my-3">

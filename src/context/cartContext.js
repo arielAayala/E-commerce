@@ -114,8 +114,7 @@ export default function CartProvider(props) {
                         let resta =  j.data().quantityProduct- i.quantityProduct
                         if(resta < 0){
                             flagError = true
-                            // eslint-disable-next-line no-throw-literal
-                            throw "No hay stock disponible"
+                            throw alert("No hay stock disponible")
                         }else{
                             lstProductsSell.push({
                                 "idProduct":i.idProduct,

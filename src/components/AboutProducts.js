@@ -15,7 +15,7 @@ export default function AboutProducts (props)  {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body text-center">
-                <img alt={props.nameProduct} src={props.photosProduct} style={{"height":"10rem"}}></img>
+                <img className="rounded mb-3" alt={props.nameProduct} src={props.photosProduct} style={{"height":"10rem"}}></img>
                 <h6>Detalle: {props.detailProduct}</h6>
                 <h6>Precio: {props.priceProduct}</h6>
                 <h6>Cantidad Disponible:{props.quantityProduct}</h6>
