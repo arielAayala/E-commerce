@@ -25,7 +25,7 @@ export default function Profile() {
             }
         }
         loadData()
-    }, [user])
+    }, [user,getUser,navigate])
 
 
     return(
