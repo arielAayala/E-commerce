@@ -22,7 +22,7 @@ export default function ButtonAgregar() {
     const handleAdd = async(e) =>{
         e.preventDefault()
         try {
-            if (input.nameProduct=== "" || input.detailProduct === "" || input.categoryProduct=== "" || input.quantityProduct==="" || input.photosProduct==="" || input.priceProduct){
+            if (input.nameProduct=== "" || input.detailProduct === "" || input.categoryProduct=== "" || input.quantityProduct==="" || input.photosProduct==="" || input.priceProduct === ""){
                 // eslint-disable-next-line
                 throw "Las casillas no puedes estar vacias"
             }else if (isNaN(parseFloat(input.quantityProduct)) || !Number.isInteger(parseFloat(input.quantityProduct))){
@@ -37,10 +37,10 @@ export default function ButtonAgregar() {
             document.getElementById("formAddProduct").reset()
             document.getElementById("alertAdd").classList.remove("d-none")
         } catch (error) {
+            console.log(error)
             document.getElementById("alertErrorAdd").classList.remove("d-none")
         }
     }
-
 
     return (
         <>
@@ -55,17 +55,17 @@ export default function ButtonAgregar() {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <form id="formAddProduct">
-                                <input className="form-control mb-2"  name="nameProduct" placeholder="Nombre del producto" onChange={handleChange} ></input>
-                                <textarea className="form-control mb-2"  name="detailProduct" placeholder="Detalle del producto" onChange={handleChange} ></textarea>
-                                <input className="form-control mb-2"   name="categoryProduct" placeholder="Categoria del producto" onChange={handleChange} ></input>
-                                <input className="form-control mb-2"   name="quantityProduct" placeholder="Cantidad del producto" onChange={handleChange} ></input>
-                                <input className="form-control mb-2"   name="priceProduct" placeholder="Precio del producto" onChange={handleChange} ></input>
-                                <input className="form-control mb-2"   name="photosProduct" placeholder="Fotos del producto" onChange={handleChange} ></input>
+                            <form id="formAddProduct" onSubmit={handleAdd}>
+                                <input className="form-control mb-2" name="nameProduct" placeholder="Nombre del producto" onChange={handleChange} ></input>
+                                <textarea className="form-control mb-2" name="detailProduct" placeholder="Detalle del producto" onChange={handleChange} ></textarea>
+                                <input className="form-control mb-2" name="categoryProduct" placeholder="Categoria del producto" onChange={handleChange} ></input>
+                                <input className="form-control mb-2" name="quantityProduct" placeholder="Cantidad del producto" onChange={handleChange} ></input>
+                                <input className="form-control mb-2" name="priceProduct" placeholder="Precio del producto" onChange={handleChange} ></input>
+                                <input className="form-control mb-2" name="photosProduct" placeholder="Fotos del producto" onChange={handleChange} ></input>
+                                <button type="submit" className="btn btn-primary"> Agregar </button>
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button type="submit" onClick={handleAdd} className="btn btn-primary">Agregar</button>
                         </div>
                     </div>
                 </div>
