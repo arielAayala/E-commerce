@@ -13,7 +13,7 @@ import Footer from "../components/footer";
 import ProtectedRouteAdmin from "../containers/protectedRoutedAdmin";
 import CartProvider from "../context/cartContext";
 import About from "../containers/About";
-import Contact from "../containers/Contact";
+import Profile from "../containers/profile";
 
 export default function App() {
   return (
@@ -27,7 +27,7 @@ export default function App() {
             <Route exact path="/products" element={<CartProvider><ProductsProvider><Products></Products></ProductsProvider></CartProvider>}/>
             <Route exact path="/cart" element={<ProtectedRoute><CartProvider><Cart></Cart></CartProvider></ProtectedRoute> } />
             <Route exact path="/about" element={ <About/> } />
-            <Route exact path="/contact" element={<Contact/>} />
+            <Route  exact path="/profile" element={<Profile/>} />
           </Routes>
           <Footer></Footer>
       </AuthProvider>

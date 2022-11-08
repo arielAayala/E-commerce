@@ -104,6 +104,7 @@ export default function CartProvider(props) {
      const confirmCart = async(total)=>{
         try {
             let flagError = false
+            let lstDetail = []
             let lstProductsSell = []
             const snapProduct = (await getDocs(collection(db,"products")))
             const snapCart = (await getDoc(doc(db,"users",user.uid)))
@@ -130,8 +131,15 @@ export default function CartProvider(props) {
                 })
             })
             if (!flagError){
+                lstDetail.push({
+                    "userId":user.uid,
+                    "totalToPay":total,
+                    "detailSell":lstProductsSell,
+                })
+                const snap = await getDoc(doc(db,"users",user.uid))
                 await updateDoc(doc(db,"users",user.uid),{
-                    "cart":[]
+                    "cart":[],
+                    "buyUser": (snap.data().buyUser).concat(lstDetail)
                 })
                 await addDoc(collection(db,"sells"),{
                     "userId":user.uid,

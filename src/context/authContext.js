@@ -2,7 +2,7 @@ import AuthContext from "./context"
 import React,{useEffect, useState} from "react";
 import {createUserWithEmailAndPassword, onAuthStateChanged ,GoogleAuthProvider, sendEmailVerification,signInWithEmailAndPassword,signOut,signInWithPopup,sendPasswordResetEmail} from "firebase/auth"
 import {auth} from "../services/firebase"
-import { setDoc,doc} from "firebase/firestore";
+import { setDoc,doc, getDoc} from "firebase/firestore";
 import { db } from "../services/firebase";
 
 
@@ -39,15 +39,35 @@ export default function AuthProvider(props){
         })
     },[])
 
+    const getUser = async(useruid)=>{
+        const snap = await getDoc(doc(db,"users",useruid))
+        return snap.data()
+    }
+
     //guardar usuarios en DB
     const addUser = async(user) =>{
         if (!user) return
-        await setDoc(doc(db,"users",user.user.uid),{
-            uid: user.user.uid,
-            emailUser: user.user.email,
-            photoUser: user.user.photoURL,
-            cart:[]
+        const snap =await getDoc(doc(db,"users",user.user.uid))
+        try {
+            const lstBuy =snap.data().buyUser       
+            await setDoc(doc(db,"users",user.user.uid),{
+                uid: user.user.uid,
+                emailUser: user.user.email,
+                photoUser: user.user.photoURL,
+                cart:[],
+                buyUser: lstBuy
         })
+        } catch  {
+            const lstBuy =[]      
+            await setDoc(doc(db,"users",user.user.uid),{
+                uid: user.user.uid,
+                emailUser: user.user.email,
+                photoUser: user.user.photoURL,
+                cart:[],
+                buyUser: lstBuy
+            })
+        }
+
     }
 
    
@@ -63,7 +83,7 @@ export default function AuthProvider(props){
             logInGoogle,
             logOut,
             addUser,
-            sendEmailVerification
+            getUser
             }}>
             {children}
         </AuthContext.Provider>
