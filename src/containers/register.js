@@ -1,5 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/footer";
+import Header from "../components/header";
 import RegisterForm from "../components/registerForm";
 import context from "../context/context";
 
@@ -18,6 +20,7 @@ export default function Register() {
 
     return (
         <>
+            <Header></Header>
             {user ? (
                 <div>
                     cargando...
@@ -29,6 +32,7 @@ export default function Register() {
                 <RegisterForm></RegisterForm>
             </div>
             )}
+            <Footer></Footer>
         </>
     )
 };

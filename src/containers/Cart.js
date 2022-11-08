@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react"
 import context from "../context/context"
 import EditAlert from "../components/Alert"
+import Header from "../components/header"
+import Footer from "../components/footer"
 export default function Cart() {
     const {getCart,lstCart,deleteCart,deleteAllCart,confirmCart,calculatePay} = useContext(context)
 
@@ -55,6 +57,7 @@ export default function Cart() {
            <EditAlert id={"alertDeleteAll"} message={"Se han borrado todos los productos del carrito!"}></EditAlert>
            <EditAlert id={"alertDelete"} message={"Se ha borrado el producto del carrito"}></EditAlert>
            <EditAlert id={"alertConfirmBuy"} message={"Se ha realizado la compra correctamente"}></EditAlert>
+           <Header></Header>
             <div className="my-5  py-2" style={{"backgroundColor":"#E1E1E1"}}>
                 <h2 className="w-100 text-center bg-secondary rounded-pill">Carrito🛒</h2>
                 {lstCart.length > 0 ?(
@@ -103,6 +106,7 @@ export default function Cart() {
                     </div>
                 )}
             </div>
+            <Footer></Footer>
         </>
     )
 }

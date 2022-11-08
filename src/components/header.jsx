@@ -31,7 +31,6 @@ export default function Header() {
          }
       }
       loadCart()
-      console.log("cart");
    },[user,getUser])
 
    return (

@@ -1,5 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/footer";
+import Header from "../components/header";
 import LoginForm from "../components/loginForm";
 import context from "../context/context";
 
@@ -19,6 +21,7 @@ export default function Login() {
 
     return (
         <>
+            <Header></Header>
             {user ? (
                 <div>
                     cargando...
@@ -32,7 +35,7 @@ export default function Login() {
                 </div>
             )
             }
-
+            <Footer></Footer>
         </>
     )
 }

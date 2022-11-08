@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import context from "../context/context"
+import AboutProducts from "./AboutProducts"
 import EditAlert from "./Alert"
 export default function Product(props) {
 
@@ -33,7 +34,7 @@ export default function Product(props) {
                     ):(
                         <button className="btn btn-primary disabled" style={{"fontSize":"0.75rem"}}  onClick={handleAddToCart} > Agregar al carrito </button>
                     )}
-                    
+                <AboutProducts  key={props.id} id={props.id} nameProduct={props.nameProduct} detailProduct={props.detailProduct} priceProduct={props.priceProduct} quantityProduct={props.quantityProduct} photosProduct={props.photosProduct}></AboutProducts>
                 </div>
             </div>
         </>

@@ -1,6 +1,8 @@
 
 import { useContext, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/footer";
+import Header from "../components/header";
 import ProfileData from "../components/profileData";
 import context from "../context/context";
 
@@ -13,6 +15,9 @@ export default function Profile() {
 
 
     useEffect(() => {
+        if (!user){
+            navigate("/login")
+        }
         const loadData = async()=>{
             try {
                 setLstBuy((await getUser(await user.uid)).buyUser)
@@ -25,6 +30,7 @@ export default function Profile() {
 
     return(
         <>
+            <Header></Header>
             {!user ? (
                 <div>
                     cargando...
@@ -53,7 +59,7 @@ export default function Profile() {
                 </div>
             )
             }
-        
+            <Footer></Footer>
         </>
     )
 

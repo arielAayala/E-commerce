@@ -8,8 +8,6 @@ import Admin from "../containers/Admin"
 import Products from "../containers/Products"
 import Cart from "../containers/Cart";
 import ProtectedRoute from "../containers/protectedRoute";
-import Header from "../components/header";
-import Footer from "../components/footer";
 import ProtectedRouteAdmin from "../containers/protectedRoutedAdmin";
 import CartProvider from "../context/cartContext";
 import About from "../containers/About";
@@ -18,9 +16,8 @@ import Profile from "../containers/profile";
 export default function App() {
   return (
       <AuthProvider>
-          <Header></Header>
           <Routes>
-            <Route exact path="/" element={<Home/>} />
+            <Route exact path="/" element={<ProductsProvider><Home/></ProductsProvider>} />
             <Route exact path="/login" element={<Login/>}/>
             <Route exact path="/register" element={<Register/>}/>
             <Route exact path="/admin" element={<ProtectedRouteAdmin><ProductsProvider><Admin/></ProductsProvider></ProtectedRouteAdmin>} />
@@ -29,7 +26,6 @@ export default function App() {
             <Route exact path="/about" element={ <About/> } />
             <Route  exact path="/profile" element={<Profile/>} />
           </Routes>
-          <Footer></Footer>
       </AuthProvider>
 
   );

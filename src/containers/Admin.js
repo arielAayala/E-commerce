@@ -1,4 +1,6 @@
 import ButtonAgregar from "../components/buttonAgregar";
+import Footer from "../components/footer";
+import Header from "../components/header";
 import Table from "../components/Table";
 
 
@@ -8,6 +10,7 @@ export default function Admin() {
 
     return(
         <>
+            <Header></Header>
             <div className="container my-3 text-center">
                 <div className="row">
                     <div className="col-4 d-flex justify-content-start">
@@ -22,9 +25,7 @@ export default function Admin() {
                     <Table></Table>
                 </div>
             </div>
-
-
-
+            <Footer></Footer>
         </>
     )
 

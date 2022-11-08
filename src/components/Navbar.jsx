@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom"
+
 export default function Navbar() {
+    const navigate=useNavigate()
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-warning">
@@ -9,13 +12,13 @@ export default function Navbar() {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item ">
-                                <a className="nav-link" href="/profile">Perfil</a>
+                                <button className="nav-link btn" onClick={()=>{navigate("/profile")}}>Perfil</button>
                             </li>
                             <li className="nav-item ">
-                                <a className="nav-link" href="/products">Productos</a>
+                                <button className="nav-link btn" onClick={()=>{navigate("/products")}}>Productos</button>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/about">Acerca de</a>
+                                <button className="nav-link btn " onClick={()=>{navigate("/about")}}>Acerca de</button>
                             </li>
                             <li className="nav-item ">
                                 <a className="nav-link" target="_blank"  href="https://github.com/arielAayala/E-commerce" rel="noreferrer">GitHub</a>
