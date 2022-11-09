@@ -5,7 +5,7 @@ import EditAlert from "./Alert"
 
 export default function AboutProducts (props)  {
 
-  const{addToCart,addCart}=useContext(context)
+  const{addCart}=useContext(context)
 
 
     const handleAddToCart = async(e) =>{

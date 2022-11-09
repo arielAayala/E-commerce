@@ -13,8 +13,8 @@ export default function SearchBar() {
 
     useEffect(() => {
       getProducts()
-        // eslint-disable-next-line
-    }, [])
+        
+    }, [getProducts])
 
     return(
         <>
@@ -24,6 +24,7 @@ export default function SearchBar() {
                      </input>
                      <ul className="list-group position-absolute " style={{"width":"15rem","zIndex":"1051"}}>
                         {    
+                        // eslint-disable-next-line array-callback-return
                         lstProducts.filter(i=>{
                             if (searcher === ""){
                                 return null

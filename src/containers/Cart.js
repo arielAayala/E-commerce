@@ -19,7 +19,8 @@ export default function Cart() {
         getCart()
         loadPay()
 
-    }, [getCart,user,navigate]);
+    // eslint-disable-next-line 
+    }, []);
 
     const loadPay = async()=>{
         setTotalPay(await calculatePay())

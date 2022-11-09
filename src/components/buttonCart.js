@@ -13,7 +13,7 @@ export default function ButtonCart() {
 
     useEffect(() => {
         loadCart()
-    }, [])
+    }, [loadCart])
     
 
     return(
