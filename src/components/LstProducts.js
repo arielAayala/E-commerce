@@ -26,7 +26,7 @@ export default function LstProducts() {
                 </div>    
             </div> 
             <div className="container">
-                <div className="row ">
+                <div className="row text-center">
                     
                 {// eslint-disable-next-line
                     lstProducts.sort((a,b)=>{

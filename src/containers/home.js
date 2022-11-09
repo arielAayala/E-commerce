@@ -21,7 +21,8 @@ export default function Home() {
             <div className="w-100 m-auto my-5">
                 <Carrousel  autoPlay={true}></Carrousel>
             </div> 
-            <div className="container">
+            <div className="container m-auto text-center w-75 my-5">
+                <h3>Productos Destacados</h3>
             <div className="row">
                 {lstProducts.sort((a,b)=>{
                     if (parseInt(a) > parseInt(b)){
