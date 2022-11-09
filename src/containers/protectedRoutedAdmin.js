@@ -19,7 +19,7 @@ export default function ProtectedRouteAdmin({children}){
         </>
     )
 
-    if (!user || user.uid !== "3uZ5yknYaGeuECiNV5TXQNtgAMR2"){
+    if (!user || user.uid !== "7TQ1N3zbIAgVVTTZQ8Eo0WGcbn13"){
         return <Navigate to="/login"/>
     }else return <>{children}</>
 }

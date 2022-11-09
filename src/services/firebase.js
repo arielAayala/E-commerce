@@ -9,13 +9,12 @@ import { getAuth } from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBgRiQHBTodoQGT4E6HBVLv-P7k4dHnArg",
-  authDomain: "e-commerce-integrador.firebaseapp.com",
-  projectId: "e-commerce-integrador",
-  storageBucket: "e-commerce-integrador.appspot.com",
-  messagingSenderId: "794219416608",
-  appId: "1:794219416608:web:28b7debf7de9a7b5090045",
-  measurementId: "G-K9WCS3BBLR"
+  apiKey: "AIzaSyBLUGckGZu3fdCoiMbiSLizdq24007eRA8",
+  authDomain: "rickyshop-1a65f.firebaseapp.com",
+  projectId: "rickyshop-1a65f",
+  storageBucket: "rickyshop-1a65f.appspot.com",
+  messagingSenderId: "311553721125",
+  appId: "1:311553721125:web:047f118b29f60591ce50cc"
 };
 
 // Initialize Firebase

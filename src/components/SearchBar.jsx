@@ -12,9 +12,9 @@ export default function SearchBar() {
 
 
     useEffect(() => {
-      getProducts()
-        
-    }, [getProducts])
+        getProducts()
+        console.log("cargar");
+    }, [])
 
     return(
         <>

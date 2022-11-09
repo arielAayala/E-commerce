@@ -31,7 +31,7 @@ export default function Navbar() {
                                 <a className="nav-link" target="_blank"  href="https://github.com/arielAayala/E-commerce" rel="noreferrer">GitHub</a>
                             </li>
                             { 
-                                 (user &&(user.uid!=="3uZ5yknYaGeuECiNV5TXQNtgAMR2")) ? (
+                                 ((user &&(user.uid!=="7TQ1N3zbIAgVVTTZQ8Eo0WGcbn13")) || !user) ? (
                                     <li className="nav-item ">
                                         <button className="nav-link btn" onClick={()=>{navigate("/profile")}}>Perfil</button>
                                      </li>

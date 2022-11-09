@@ -25,6 +25,7 @@ export default function Profile() {
             }
         }
         loadData()
+        console.log("cargar");
     }, [user,getUser,navigate])
 
 
