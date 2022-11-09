@@ -1,14 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import context from '../context/context'
 import Navbar from "./Navbar";
 import Icon from "../assets/static/icons/hanna.png"
+import ButtonCart from './buttonCart';
+import SearchBar from './SearchBar';
 
 export default function Header() {
-   const { user, logOut,getUser } = useContext(context)
+   const { user, logOut } = useContext(context)
    const navigate = useNavigate()
 
-   const [elementsCart,setElementsCart]=useState(0)
+
 
    const handleLogout = async () => {
       await logOut()
@@ -17,21 +19,6 @@ export default function Header() {
 
 
 
-   useEffect(()=>{
-      const loadCart = async()=>{
-         try {
-            let count = 0
-            const snap = (await getUser(await user.uid)).cart
-            await snap.forEach(i => {
-               count+= i.quantityProduct
-            });
-            setElementsCart(count)
-         } catch (error) {
-            
-         }
-      }
-      loadCart()
-   },[user,getUser])
 
    return (
       <>
@@ -44,11 +31,7 @@ export default function Header() {
                         <a href="/" className="nav-link px-2 text-white"> Ricky Shop </a>
                      </li>
                   </ul>
-                  <form className='mx-2'>
-                     <input type="search" className="form-control form-control-dark text-bg-dark"
-                        placeholder="Buscar productos" aria-label="Search">
-                     </input>
-                  </form>
+                  <SearchBar></SearchBar>
                   {
                      !user ? (
                         <>
@@ -67,11 +50,7 @@ export default function Header() {
                         <div className="text-end">
                            <button className="btn btn-outline-light" onClick={handleLogout}> Salir  </button>
                         </div>
-                        <div className="text-end mx-2">
-                           <button className="btn btn-outline-light" aria-current="page" onClick={()=>{navigate("/cart")}}> Carrito {elementsCart} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart" viewBox="0 0 16 16">
-                              <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" /></svg>
-                           </button>
-                        </div>
+                        <ButtonCart></ButtonCart>
                         </>
                         
                      )

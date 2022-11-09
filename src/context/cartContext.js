@@ -6,15 +6,15 @@ import { getDoc,getDocs,doc,collection,updateDoc,addDoc,serverTimestamp } from "
 
 export default function CartProvider(props) {
     const {children} = props
-    const {user,logOut} = useContext(context)
+    const {user,logOut,getUser,loadCart,cart} = useContext(context)
 
 
      //carrito
-     const [cart,setCart] = useState([])
+     const [cartElement,setCartElement] = useState([])
 
      const getCart = async() =>{
          const snap = await getDoc(doc(db,"users",user.uid))
-         setCart(snap.data().cart)
+         setCartElement(snap.data().cart)
      }
  
      const addCart = async(id,name,photo,price)=>{
@@ -58,6 +58,7 @@ export default function CartProvider(props) {
             await updateDoc(doc(db,"users",user.uid),{
                 "cart":lst
             })
+            await loadCart()
         } catch (error) {
             alert(error.message)
         }
@@ -65,7 +66,6 @@ export default function CartProvider(props) {
  
      const deleteCart = async(id)=>{
         try {
-            
             const lst = []
             const snap = await getDoc(doc(db,"users",user.uid))
             await snap.data().cart.forEach(i=>{
@@ -85,6 +85,7 @@ export default function CartProvider(props) {
             await updateDoc(doc(db,"users",user.uid),{
                 "cart":lst  
               })
+            await loadCart()
         } catch (error) {
             alert(error.message)
         }
@@ -96,6 +97,7 @@ export default function CartProvider(props) {
             await updateDoc(doc(db,"users",user.uid),{
                 "cart":lst
             })
+            await loadCart()
         } catch (error) {
             alert(error.message)
         }
@@ -147,6 +149,7 @@ export default function CartProvider(props) {
                     "time":serverTimestamp()
                 })
             }
+            await loadCart()
         } catch (error) {
             alert(error.message) 
         }
@@ -175,7 +178,7 @@ export default function CartProvider(props) {
         <>
         <Cartcontext.Provider value={{
             getCart,
-            lstCart:cart,
+            lstCart:cartElement,
             addCart,
             deleteCart,
             deleteAllCart,
@@ -183,7 +186,10 @@ export default function CartProvider(props) {
             calculatePay,
             user,
             calculateElementsInCart,
-            logOut
+            logOut,
+            getUser,
+            loadCart,
+            cart
         }} >
             {children}
         </Cartcontext.Provider>

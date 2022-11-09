@@ -23,8 +23,8 @@ export default function App() {
             <Route exact path="/admin" element={<ProtectedRouteAdmin><ProductsProvider><Admin/></ProductsProvider></ProtectedRouteAdmin>} />
             <Route exact path="/products" element={<CartProvider><ProductsProvider><Products></Products></ProductsProvider></CartProvider>}/>
             <Route exact path="/cart" element={<ProtectedRoute><CartProvider><Cart></Cart></CartProvider></ProtectedRoute> } />
-            <Route exact path="/about" element={ <About/> } />
-            <Route  exact path="/profile" element={<Profile/>} />
+            <Route exact path="/about" element={<ProductsProvider><About/> </ProductsProvider> } />
+            <Route  exact path="/profile" element={<ProductsProvider> <Profile/></ProductsProvider>} />
           </Routes>
       </AuthProvider>
 

@@ -70,8 +70,19 @@ export default function AuthProvider(props){
 
     }
 
-   
-
+    const [cart,setCart] = useState(0)
+    const loadCart = async()=>{
+        try {
+            let count = 0
+            const snap = (await getUser(await user.uid)).cart
+            await snap.forEach(i => {
+                count+= i.quantityProduct
+            });
+            setCart(count)
+        } catch (error) {
+        console.log(error); 
+        }
+    }
     return (
         <>
         <AuthContext.Provider value={{
@@ -83,7 +94,9 @@ export default function AuthProvider(props){
             logInGoogle,
             logOut,
             addUser,
-            getUser
+            getUser,
+            cart,
+            loadCart
             }}>
             {children}
         </AuthContext.Provider>

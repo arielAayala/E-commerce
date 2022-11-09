@@ -4,10 +4,10 @@ export default function AboutProducts (props)  {
   return (
     <>
         <button type="button" className="btn btn-outline-dark mx-2" data-bs-toggle="modal" data-bs-target={"#modal"+props.id} style={{"fontSize":"0.75rem"}}>
-          Ver detalles
+          {props.nameBtn || "Ver detalles"}
         </button>
 
-        <div className="modal fade" id={"modal"+props.id} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className={props.hidden || "modal fade" } id={"modal"+props.id} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style={{"zIndex":""}}>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">

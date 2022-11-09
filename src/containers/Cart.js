@@ -4,7 +4,7 @@ import EditAlert from "../components/Alert"
 import Header from "../components/header"
 import Footer from "../components/footer"
 export default function Cart() {
-    const {getCart,lstCart,deleteCart,deleteAllCart,confirmCart,calculatePay} = useContext(context)
+    const {getCart,lstCart,deleteCart,deleteAllCart,confirmCart,calculatePay,loadCart,cart} = useContext(context)
 
     const [totalPay,setTotalPay]=useState(0)
 

@@ -8,7 +8,7 @@ import context from "./context"
 
 export default function ProductsProvider(props) {
 
-    const {addCart,user,logOut} =useContext(context)
+    const {addCart,user,logOut,getUser,cart,loadCart} =useContext(context)
 
     const {children} = props
 
@@ -81,7 +81,10 @@ export default function ProductsProvider(props) {
                 deleteProduct,
                 addToCart,
                 user,
-                logOut
+                logOut,
+                getUser,
+                cart,
+                loadCart
             }}>{children}</ContextProducts.Provider>
         </>
     )
