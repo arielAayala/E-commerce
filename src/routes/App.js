@@ -17,14 +17,14 @@ export default function App() {
   return (
       <AuthProvider>
           <Routes>
-            <Route exact path="/" element={<ProductsProvider><Home/></ProductsProvider>} />
+            <Route exact path="/" element={<ProductsProvider><CartProvider><Home/></CartProvider></ProductsProvider>} />
             <Route exact path="/login" element={<Login/>}/>
             <Route exact path="/register" element={<Register/>}/>
-            <Route exact path="/admin" element={<ProtectedRouteAdmin><ProductsProvider><Admin/></ProductsProvider></ProtectedRouteAdmin>} />
-            <Route exact path="/products" element={<CartProvider><ProductsProvider><Products></Products></ProductsProvider></CartProvider>}/>
-            <Route exact path="/cart" element={<ProtectedRoute><CartProvider><Cart></Cart></CartProvider></ProtectedRoute> } />
-            <Route exact path="/about" element={<ProductsProvider><About/> </ProductsProvider> } />
-            <Route  exact path="/profile" element={<ProductsProvider> <Profile/></ProductsProvider>} />
+            <Route exact path="/admin" element={<ProductsProvider><ProtectedRouteAdmin><Admin/></ProtectedRouteAdmin></ProductsProvider>} />
+            <Route exact path="/products" element={<ProductsProvider><CartProvider><Products></Products></CartProvider></ProductsProvider>}/>
+            <Route exact path="/cart" element={<ProductsProvider><CartProvider><ProtectedRoute><Cart/></ProtectedRoute> </CartProvider></ProductsProvider> } />
+            <Route exact path="/about" element={ <ProductsProvider><CartProvider><About/></CartProvider></ProductsProvider>    } />
+            <Route  exact path="/profile" element={<ProductsProvider><CartProvider><Profile/></CartProvider> </ProductsProvider> } />
           </Routes>
       </AuthProvider>
 

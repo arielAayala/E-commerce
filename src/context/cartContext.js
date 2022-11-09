@@ -6,7 +6,7 @@ import { getDoc,getDocs,doc,collection,updateDoc,addDoc,serverTimestamp } from "
 
 export default function CartProvider(props) {
     const {children} = props
-    const {user,logOut,getUser,loadCart,cart} = useContext(context)
+    const {user,logOut,getUser,loadCart,cart,lstProducts,getProducts} = useContext(context)
 
 
      //carrito
@@ -189,7 +189,9 @@ export default function CartProvider(props) {
             logOut,
             getUser,
             loadCart,
-            cart
+            cart,
+            lstProducts,
+            getProducts
         }} >
             {children}
         </Cartcontext.Provider>

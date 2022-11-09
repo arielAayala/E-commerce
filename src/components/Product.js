@@ -4,14 +4,14 @@ import AboutProducts from "./AboutProducts"
 import EditAlert from "./Alert"
 export default function Product(props) {
 
-    const{addToCart}=useContext(context)
+    const{addCart}=useContext(context)
 
 
 
 
     const handleAddToCart = async() =>{
         try {  
-            await addToCart(props.id,props.nameProduct,props.photosProduct,props.priceProduct)
+            await addCart(props.id,props.nameProduct,props.photosProduct,props.priceProduct)
             document.getElementById("alertAddToCart").classList.remove("d-none")
         } catch (error) {
             document.getElementById("alertErrorAddToCart").classList.remove("d-none")
@@ -34,7 +34,7 @@ export default function Product(props) {
                     ):(
                         <button className="btn btn-primary disabled" style={{"fontSize":"0.75rem"}}  onClick={handleAddToCart} > Agregar al carrito </button>
                     )}
-                <AboutProducts  key={props.id} id={props.id} nameProduct={props.nameProduct} detailProduct={props.detailProduct} priceProduct={props.priceProduct} quantityProduct={props.quantityProduct} photosProduct={props.photosProduct}></AboutProducts>
+                <AboutProducts funcion={false} key={props.id} id={props.id} nameProduct={props.nameProduct} detailProduct={props.detailProduct} priceProduct={props.priceProduct} quantityProduct={props.quantityProduct} photosProduct={props.photosProduct}></AboutProducts>
                 </div>
             </div>
         </>

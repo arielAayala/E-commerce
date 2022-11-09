@@ -1,6 +1,10 @@
+import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
+import context from "../context/context"
+
 
 export default function Navbar() {
+    const{user}=useContext(context)
     const navigate=useNavigate()
     return (
         <>
@@ -23,6 +27,12 @@ export default function Navbar() {
                             <li className="nav-item ">
                                 <a className="nav-link" target="_blank"  href="https://github.com/arielAayala/E-commerce" rel="noreferrer">GitHub</a>
                             </li>
+                            {user.uid ==="3uZ5yknYaGeuECiNV5TXQNtgAMR2"&&(
+                                 <li className="nav-item">
+                                 <button className="nav-link btn " onClick={()=>{navigate("/admin")}}>Admin</button>
+                             </li>
+                            )
+                            }
                         </ul>
                     </div>
                 </div>

@@ -1,18 +1,25 @@
 import { useContext, useEffect, useState } from "react"
 import context from "../context/context"
 import EditAlert from "../components/Alert"
-import Header from "../components/header"
 import Footer from "../components/footer"
+import { useNavigate } from "react-router-dom";
+import Header from "../components/header"
+
 export default function Cart() {
-    const {getCart,lstCart,deleteCart,deleteAllCart,confirmCart,calculatePay,loadCart,cart} = useContext(context)
+    const {getCart,lstCart,deleteCart,deleteAllCart,confirmCart,calculatePay,user,} = useContext(context)
 
     const [totalPay,setTotalPay]=useState(0)
 
+    const navigate = useNavigate()
+
     useEffect(() => {
+        if(!user){
+            navigate("/login")
+        }
         getCart()
         loadPay()
-        // eslint-disable-next-line
-    }, []);
+
+    }, [getCart,user,navigate]);
 
     const loadPay = async()=>{
         setTotalPay(await calculatePay())
@@ -40,6 +47,7 @@ export default function Cart() {
         }
     }
 
+
     const handleConfirmCart= async()=>{
         try {
             await confirmCart(totalPay)
@@ -50,6 +58,7 @@ export default function Cart() {
             alert(error)
         }
     }
+
 
     return(
         <>
